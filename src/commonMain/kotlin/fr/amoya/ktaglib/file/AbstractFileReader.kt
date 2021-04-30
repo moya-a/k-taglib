@@ -10,6 +10,3 @@ package fr.amoya.ktaglib.file
 
 
 abstract class AbstractFileReader(protected val filename: String) : FileReader
-{
-  protected abstract fun load()
-}
