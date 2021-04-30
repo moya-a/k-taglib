@@ -4,6 +4,9 @@
 *.flac
 *.ogg
 
+### Gradle
+gradle/**
+
 ### Java & Kotlin template
 # Compiled class file
 *.class
