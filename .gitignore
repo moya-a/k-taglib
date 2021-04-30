@@ -1,3 +1,9 @@
+### test audio files
+*.mp3
+*.wav
+*.flac
+*.ogg
+
 ### Java & Kotlin template
 # Compiled class file
 *.class
