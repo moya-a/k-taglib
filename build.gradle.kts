@@ -1,8 +1,8 @@
 plugins {
   kotlin("multiplatform") version "1.4.32"
-  id("org.sonarqube") version "3.2.0"
   java
   jacoco
+  id("org.sonarqube") version "3.2.0"
 }
 
 group = "fr.amoya"
@@ -18,13 +18,18 @@ dependencies {
   implementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }
 
+
 jacoco {
   toolVersion = "0.8.6"
 }
 sonarqube {
   properties {
+    property("sonar.host.url", "https://sonarcloud.io")
     property("sonar.organization", "moya-a")
-    property("sonar.projectKey", "k-taglib")
+    property("sonar.projectKey", "moya-a_k-taglib")
+    property("sonar.projectName", "K-TagLib")
+    property("sonar.projectVersion", version)
+    property("sonar.java.coveragePlugin", "jacoco")
     property("sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/jacoco/test/jacocoTestReport.xml")
   }
 }
