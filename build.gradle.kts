@@ -1,5 +1,6 @@
 plugins {
   kotlin("multiplatform") version "1.4.32"
+  id("org.sonarqube") version "3.2.0"
   java
   jacoco
 }
@@ -20,9 +21,15 @@ dependencies {
 jacoco {
   toolVersion = "0.8.6"
 }
+sonarqube {
+  properties {
+    property("sonar.organization", "moya-a")
+    property("sonar.projectKey", "k-taglib")
+    property("sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/jacoco/test/jacocoTestReport.xml")
+  }
+}
 
 tasks {
-  // Tests
   withType<Test> {
     useJUnitPlatform()
   }
