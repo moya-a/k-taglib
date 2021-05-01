@@ -11,11 +11,11 @@ import java.io.File
 */
 
 
-class JvmFileReader(filename: String) : AbstractFileReader(filename)
+class JvmFileReader : FileReader
 {
   private var file: File? = null
 
-  override fun load()
+  override fun load(filename: String)
   {
     file = File(filename)
   }

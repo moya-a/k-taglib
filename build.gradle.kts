@@ -10,13 +10,17 @@ version = "1.0-SNAPSHOT"
 
 repositories {
   mavenCentral()
-  jcenter()
+//  jcenter()
+//  google()
+}
+dependencies {
+  // implementation("org.junit.jupiter:junit-jupiter:5.7.0")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
+  testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
+  testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.0")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }
 
-dependencies {
-  implementation("org.junit.jupiter:junit-jupiter:5.7.0")
-  implementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
-}
 
 
 jacoco {

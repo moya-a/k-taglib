@@ -1,10 +1,12 @@
-package fr.amoya.ktaglib.parsers.utils
+package fr.amoya.ktaglib.utils
 
 
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvFileSource
+import java.lang.System.gc
 import kotlin.io.path.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isReadable
@@ -13,7 +15,7 @@ import kotlin.test.assertEquals
 
 
 /*
-* fr.amoya.ktaglib.parsers.utils
+* fr.amoya.ktaglib.utils
 * As a part of the Project k-taglib
 * @Author Arnaud Moya : <contact@amoya.fr>
 * Created on 30/04/2021
@@ -33,5 +35,12 @@ internal class UtilsTest
     assertEquals(expectedType, "${Utils.getTagSpec(fPath.toFile().readBytes())}")
   }
 
-
+  @AfterEach
+  fun cleanUp()
+  {
+    /**
+     * especially important if opening large wav files to avoid outOfMemoryErrors
+     */
+    gc()
+  }
 }

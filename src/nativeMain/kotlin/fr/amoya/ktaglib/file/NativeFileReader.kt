@@ -9,11 +9,11 @@ package fr.amoya.ktaglib.file
 */
 
 
-class NativeFileReader(filename: String) : AbstractFileReader(filename)
+class NativeFileReader : FileReader
 {
 
 
-  override fun load()
+  override fun load(filename: String)
   {
     TODO("Not yet implemented")
   }

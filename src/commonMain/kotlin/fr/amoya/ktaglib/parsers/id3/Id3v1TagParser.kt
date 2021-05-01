@@ -12,6 +12,6 @@ import fr.amoya.ktaglib.parsers.TagParser
 */
 
 
-class Id3v1TagParser(rawData: ByteArray) : TagParser, AbstractTagParser(rawData)
+class Id3v1TagParser // (rawData: ByteArray) : TagParser, AbstractTagParser(rawData)
 {
 }

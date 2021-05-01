@@ -11,5 +11,5 @@ package fr.amoya.ktaglib.file
 
 actual object FileReaderFactory
 {
-  actual fun createFileReader(fileName: String): FileReader = JvmFileReader(fileName)
+  actual fun createFileReader(fileName: String): FileReader = JvmFileReader().apply { load(fileName) }
 }
