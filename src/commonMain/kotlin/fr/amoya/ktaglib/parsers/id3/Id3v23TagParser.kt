@@ -10,8 +10,4 @@ import fr.amoya.ktaglib.parsers.TagParser
 * Created on 30/04/2021
 */
 
-
-class Id3v23TagParser // (rawData: ByteArray) : TagParser, AbstractId3v2TagParser(rawData)
-{
-
-}
+class Id3v23TagParser : TagParser, AbstractId3v2TagParser()

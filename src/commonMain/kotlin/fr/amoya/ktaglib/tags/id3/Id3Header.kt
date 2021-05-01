@@ -11,7 +11,8 @@ package fr.amoya.ktaglib.tags.id3
 
 data class Id3Header(
   var fileIdentifier: String = "ID3",
-  var version: Int = 0,
+  var versionMajor: Int = 0,
+  var versionMinor: Int = 0,
   var flagUnsynchronisation: Boolean = false,
   var flagExtendedHeader: Boolean = false,
   var flagExperimental: Boolean = false,

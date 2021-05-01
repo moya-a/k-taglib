@@ -7,10 +7,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvFileSource
 import java.lang.System.gc
-import kotlin.io.path.Path
-import kotlin.io.path.exists
-import kotlin.io.path.isReadable
-import kotlin.io.path.isRegularFile
+import kotlin.io.path.*
 import kotlin.test.assertEquals
 
 
@@ -21,10 +18,10 @@ import kotlin.test.assertEquals
 * Created on 30/04/2021
 */
 
-@kotlin.io.path.ExperimentalPathApi
+@ExperimentalPathApi
 internal class UtilsTest
 {
-  @ParameterizedTest(name = "{1}")
+  @ParameterizedTest(name = "{1} -> {0}")
   @DisplayName("Should return right file type")
   @CsvFileSource(resources = ["/expected_results.csv"], numLinesToSkip = 1)
   fun shouldReturnRightFileType(filename: String, expectedType: String)

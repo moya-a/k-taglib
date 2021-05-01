@@ -11,9 +11,8 @@ import fr.amoya.ktaglib.tags.Tag
 * Created on 30/04/2021
 */
 
-
 interface TagParser
 {
   fun <T : FileReader> parse(fileName: String, reader: T): Tag
-  fun parse(fileName: ByteArray): Tag
+  fun parse(rawData: ByteArray): Tag
 }

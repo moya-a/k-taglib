@@ -14,7 +14,7 @@ import fr.amoya.ktaglib.TagSpec
 object Utils
 {
   fun getTagSpec(rawData: ByteArray): TagSpec =
-    when (Aggregator.aggregateBytes(rawData, 4, Long::class))
+    when (ByteHelper.aggregateBytes(rawData, 4, Long::class))
     {
       TagSpec.ID3V24.magicNumber -> TagSpec.ID3V24
       TagSpec.ID3V23.magicNumber -> TagSpec.ID3V23
@@ -32,11 +32,11 @@ object Utils
     }
 
   private fun isAPE(rawData: ByteArray): Boolean =
-    Aggregator.aggregateBytes(rawData, 8, Long::class) == TagSpec.APE.magicNumber
+    ByteHelper.aggregateBytes(rawData, 8, Long::class) == TagSpec.APE.magicNumber
 
   /**
    * ID3v1 is a bit different as the tags are at the end of the file, hence the takeLast call
    */
   private fun isId3v1(rawData: ByteArray): Boolean =
-    Aggregator.aggregateBytes(rawData.takeLast(128).toByteArray(), 3, Long::class) == TagSpec.ID3V1.magicNumber
+    ByteHelper.aggregateBytes(rawData.copyOfRange(rawData.size - 128, rawData.size), 3, Long::class) == TagSpec.ID3V1.magicNumber
 }
