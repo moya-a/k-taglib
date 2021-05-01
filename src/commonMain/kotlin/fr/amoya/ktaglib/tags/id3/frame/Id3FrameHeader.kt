@@ -10,6 +10,12 @@ package fr.amoya.ktaglib.tags.id3.frame
 
 
 data class Id3FrameHeader(
-  var id: String,
-  var size: Long
+  var id: String = "",
+  var size: Int = 0,
+  var tagAlterPreservation: Boolean = false,
+  var fileAlterPreservation: Boolean = false,
+  var readOnly: Boolean = false,
+  var compression: Boolean = false,
+  var encryption: Boolean = false,
+  var groupingIdentity: Boolean = false
 )

@@ -15,5 +15,5 @@ import fr.amoya.ktaglib.tags.id3.frame.Id3Frame
 data class Id3Tag(
   var header: Id3Header = Id3Header(),
   var extendedHeader: Id3ExtendedHeader? = null,
-  var frames: MutableMap<String, Id3Frame> = mutableMapOf()
+  var frames: Collection<Id3Frame> = mutableListOf()
 ) : Tag

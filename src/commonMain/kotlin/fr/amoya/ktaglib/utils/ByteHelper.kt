@@ -18,6 +18,7 @@ object ByteHelper
     when (toClass.simpleName)
     {
       Long::class.simpleName   -> aggregateBytesToLong(rawData, numberOfBytes, offset) as T
+      Int::class.simpleName    -> aggregateBytesToLong(rawData, numberOfBytes, offset).toInt() as T
       String::class.simpleName -> aggregateBytesToString(rawData, numberOfBytes, offset) as T
       else                     -> throw Exception("Type ${toClass.simpleName} is not supported")
     }

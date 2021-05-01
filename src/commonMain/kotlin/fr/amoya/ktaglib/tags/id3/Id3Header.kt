@@ -13,8 +13,8 @@ data class Id3Header(
   var fileIdentifier: String = "ID3",
   var versionMajor: Int = 0,
   var versionMinor: Int = 0,
-  var flagUnsynchronisation: Boolean = false,
-  var flagExtendedHeader: Boolean = false,
-  var flagExperimental: Boolean = false,
-  var size: Long = 0
+  var unsynchronisation: Boolean = false,
+  var extendedHeader: Boolean = false,
+  var experimental: Boolean = false,
+  var tagSize: Int = 0
 )

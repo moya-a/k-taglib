@@ -10,8 +10,8 @@ package fr.amoya.ktaglib.tags.id3
 
 
 data class Id3ExtendedHeader(
-  var size: Long,
-  var crcFlag: Boolean,
-  var paddingSize: Long,
+  var size: Long = 0,
+  var crcFlag: Boolean = false,
+  var paddingSize: Long = 0,
   var crc: Long? = null
 )

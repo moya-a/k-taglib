@@ -1,6 +1,7 @@
 package fr.amoya.ktaglib.parsers.id3
 
 import fr.amoya.ktaglib.TagSpec
+import fr.amoya.ktaglib.parsers.id3.Id3Utils.getTagSize
 import fr.amoya.ktaglib.utils.ByteHelper.longToByteArray
 import fr.amoya.ktaglib.utils.Utils
 import org.junit.jupiter.api.AfterEach
@@ -46,7 +47,7 @@ internal class Id3v23TagParserTest
   @CsvSource(value = ["257,513"])
   fun shouldDecodeTheRightTagSize(size: Long, encodedSize: Long)
   {
-    assertEquals(size, AbstractId3v2TagParser.getTagSize(longToByteArray(encodedSize)))
+    assertEquals(size, getTagSize(longToByteArray(encodedSize)).toLong())
   }
 
 
