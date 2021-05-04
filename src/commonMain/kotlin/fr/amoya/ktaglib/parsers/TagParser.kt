@@ -1,9 +1,9 @@
 package fr.amoya.ktaglib.parsers
 
 import fr.amoya.ktaglib.TagSpec
-import fr.amoya.ktaglib.parsers.id3.Id3v22TagParser
-import fr.amoya.ktaglib.parsers.id3.Id3v23TagParser
-import fr.amoya.ktaglib.parsers.id3.Id3v24TagParser
+import fr.amoya.ktaglib.parsers.id3.v2.Id3v22TagParser
+import fr.amoya.ktaglib.parsers.id3.v2.Id3v23TagParser
+import fr.amoya.ktaglib.parsers.id3.v2.Id3v24TagParser
 import fr.amoya.ktaglib.tags.Tag
 
 /*
@@ -19,6 +19,7 @@ interface TagParser
 
   companion object
   {
+    @ExperimentalUnsignedTypes
     fun getParser(type: TagSpec): TagParser =
       when (type)
       {

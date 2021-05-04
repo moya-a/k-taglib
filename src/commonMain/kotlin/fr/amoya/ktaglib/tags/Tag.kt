@@ -16,10 +16,14 @@ import fr.amoya.ktaglib.utils.Utils
 
 interface Tag
 {
-  var type: TagSpec
+  var tagVersion: TagSpec
+  var album: String
+  var title: String
+  var artist: String
 
   companion object
   {
+    @ExperimentalUnsignedTypes
     fun getTag(absoluteFileName: String): Tag =
       FileReaderFactory.loadFileReader(absoluteFileName).readBytes().run {
         TagParser.getParser(Utils.getTagSpec(this)).parse(this)

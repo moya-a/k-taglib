@@ -11,7 +11,9 @@ package fr.amoya.ktaglib.tags.id3v2
 
 data class Id3ExtendedHeader(
   var size: Long = 0,
-  var crcFlag: Boolean = false,
+  // tags
+  var isUpdate: Boolean = false,
+  var crcPresent: Boolean = false,
   var paddingSize: Long = 0,
   var crc: Long? = null
 )

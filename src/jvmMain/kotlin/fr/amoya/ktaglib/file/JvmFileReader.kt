@@ -32,7 +32,7 @@ class JvmFileReader : FileReader
       if (this@JvmFileReader.existsAsFile() && this@JvmFileReader.isReadable())
         readBytes()
       else
-        throw Exception("Could not read file")
-    } ?: throw Exception("File is not loaded")
+        throw IllegalArgumentException("Could not read file")
+    } ?: throw IllegalStateException("File is not loaded")
 
 }

@@ -18,6 +18,7 @@ import kotlin.test.assertEquals
 */
 
 @ExperimentalPathApi
+@ExperimentalUnsignedTypes
 internal class UtilsTest
 {
   @ParameterizedTest(name = "{1} -> {0}")

@@ -10,6 +10,7 @@ import kotlin.reflect.KClass
 * Created on 01/05/2021
 */
 
+@ExperimentalUnsignedTypes
 object ByteHelper
 {
   @Suppress("UNCHECKED_CAST")
@@ -17,10 +18,22 @@ object ByteHelper
     when (toClass.simpleName)
     {
       Long::class.simpleName   -> aggregateBytesToLong(rawData, numberOfBytes, offset) as T
+      ULong::class.simpleName  -> aggregateBytesToULong(rawData, numberOfBytes, offset) as T
       Int::class.simpleName    -> aggregateBytesToLong(rawData, numberOfBytes, offset).toInt() as T
+      UInt::class.simpleName   -> aggregateBytesToULong(rawData, numberOfBytes, offset).toUInt() as T
       String::class.simpleName -> aggregateBytesToString(rawData, numberOfBytes, offset) as T
       else                     -> throw Exception("Type ${toClass.simpleName} is not supported")
     }
+
+  private fun aggregateBytesToULong(rawData: ByteArray, numberOfBytes: Int = 8, offset: Int = 0): ULong
+  {
+    require(numberOfBytes in 1..8) { "The Long type is able to contain only 1 to 8 bytes" }
+    val uData = rawData.toUByteArray()
+    return uData
+      .drop(offset)
+      .take(numberOfBytes)
+      .fold(0x00uL) { aggregate, nextByte -> aggregate shl (8) or nextByte.toULong() }
+  }
 
   private fun aggregateBytesToLong(rawData: ByteArray, numberOfBytes: Int = 8, offset: Int = 0): Long
   {
@@ -58,10 +71,13 @@ object ByteHelper
       value[0].toLong()
   }
 
-  @ExperimentalUnsignedTypes
+
   fun synchSafeBytesToInt(rawSize: ByteArray): Int = synchSafeBytesToLong(rawSize).toInt()
 
-  @ExperimentalUnsignedTypes
+
+  fun synchSafeBytesToUInt(rawSize: ByteArray): UInt = synchSafeBytesToLong(rawSize).toUInt()
+
+
   private fun synchSafeBytesToLong(rawSize: ByteArray): Long
   {
     require(rawSize.size == 4) { "ByteArray containing tag size must be 4 Bytes long" }
@@ -73,10 +89,10 @@ object ByteHelper
     return result
   }
 
-  @ExperimentalUnsignedTypes
+
   fun intToSynchSafeByteArray(size: Int): ByteArray = longToSynchSafeByteArray(size.toLong())
 
-  @ExperimentalUnsignedTypes
+
   private fun longToSynchSafeByteArray(size: Long): ByteArray
   {
     val result = ByteArray(4)

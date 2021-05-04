@@ -12,14 +12,16 @@ import fr.amoya.ktaglib.tags.id3v2.frame.Id3Frame
 * Created on 01/05/2021
 */
 
-
+@ExperimentalUnsignedTypes
 data class Id3v2Tag(
   var header: Id3Header = Id3Header(),
   var extendedHeader: Id3ExtendedHeader? = null,
   var frames: Collection<Id3Frame> = mutableListOf()
 ) : Tag
 {
-  override var type =
+
+
+  override var tagVersion =
     when (header.versionMajor)
     {
       2    -> TagSpec.ID3V22
@@ -28,5 +30,9 @@ data class Id3v2Tag(
       else -> throw UnsupportedOperationException("ID3v2 version is not recognized")
     }
 
+  override var album: String = ""
 
+  override var title: String = ""
+
+  override var artist: String = ""
 }
