@@ -1,4 +1,4 @@
-package fr.amoya.ktaglib.tags.id3
+package fr.amoya.ktaglib.tags.id3v2
 
 
 /*

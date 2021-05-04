@@ -1,8 +1,5 @@
 package fr.amoya.ktaglib.parsers.id3
 
-import fr.amoya.ktaglib.parsers.abstracts.AbstractTagParser
-import fr.amoya.ktaglib.parsers.TagParser
-
 
 /*
 * fr.amoya.ktaglib.parsers.id3

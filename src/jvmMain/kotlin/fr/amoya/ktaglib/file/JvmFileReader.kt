@@ -1,6 +1,7 @@
 package fr.amoya.ktaglib.file
 
 import java.io.File
+import java.nio.file.Files
 
 
 /*
@@ -20,15 +21,15 @@ class JvmFileReader : FileReader
     file = File(filename)
   }
 
-  override fun existsAsFile(): Boolean = file?.run { exists() && isFile } ?: false
+  override fun existsAsFile(): Boolean = file?.run { this.exists() && this.isFile } ?: false
 
 
-  override fun isReadable(): Boolean = file?.run { isReadable() } ?: false
+  override fun isReadable(): Boolean = file?.run { Files.isReadable(this.toPath()) } ?: false
 
 
   override fun readBytes(): ByteArray =
     file?.run {
-      if (existsAsFile() && isReadable())
+      if (this@JvmFileReader.existsAsFile() && this@JvmFileReader.isReadable())
         readBytes()
       else
         throw Exception("Could not read file")

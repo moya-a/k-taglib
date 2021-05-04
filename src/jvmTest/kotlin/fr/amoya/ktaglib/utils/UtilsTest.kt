@@ -3,7 +3,6 @@ package fr.amoya.ktaglib.utils
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assumptions
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvFileSource
 import java.lang.System.gc
@@ -22,9 +21,8 @@ import kotlin.test.assertEquals
 internal class UtilsTest
 {
   @ParameterizedTest(name = "{1} -> {0}")
-  @DisplayName("Should return right file type")
   @CsvFileSource(resources = ["/expected_results.csv"], numLinesToSkip = 1)
-  fun shouldReturnRightFileType(filename: String, expectedType: String)
+  fun `should return right tag specification`(filename: String, expectedType: String)
   {
     val fPath = Path("src", "commonTest", "resources", filename)
 

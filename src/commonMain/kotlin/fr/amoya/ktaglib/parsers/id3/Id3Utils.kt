@@ -1,8 +1,8 @@
 package fr.amoya.ktaglib.parsers.id3
 
-import fr.amoya.ktaglib.tags.id3.Id3ExtendedHeader
-import fr.amoya.ktaglib.tags.id3.frame.Id3Frame
-import fr.amoya.ktaglib.tags.id3.frame.Id3FrameHeader
+import fr.amoya.ktaglib.tags.id3v2.Id3ExtendedHeader
+import fr.amoya.ktaglib.tags.id3v2.frame.Id3Frame
+import fr.amoya.ktaglib.tags.id3v2.frame.Id3FrameHeader
 import fr.amoya.ktaglib.utils.ByteHelper
 
 
@@ -36,7 +36,7 @@ object Id3Utils
     require(rawSize.size == 4) { "ByteArray containing tag size must be 4 Bytes long" }
     var result: Long = 0
     rawSize.forEachIndexed { index, byte ->
-      if (byte.toUByte() and 0x80u > 0u) throw Exception("Not Synch-safe size is not supported")
+      if (byte.toUByte() and 0x80u > 0u) throw Exception("Synch-unsafe size is not supported")
       result = result or ((byte.toLong() and 0x7f) shl (((rawSize.size - 1) - index) * 7))
     }
     return result.toInt()
@@ -48,7 +48,6 @@ object Id3Utils
     var frameStart = 0
     while (frameStart + 10 < rawFrames.size)
     {
-      println("<<<<< $frameStart / ${rawFrames.size}")
       val contentSize = ByteHelper.aggregateBytes(rawFrames.copyOfRange(frameStart + 4, frameStart + 8), 4, Int::class)
       val frameSize = contentSize + 10
       val nextFrame = frameStart + frameSize

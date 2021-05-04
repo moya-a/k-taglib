@@ -10,7 +10,6 @@ import kotlin.reflect.KClass
 * Created on 01/05/2021
 */
 
-
 object ByteHelper
 {
   @Suppress("UNCHECKED_CAST")
@@ -57,5 +56,35 @@ object ByteHelper
       (value[2].toLong() shl 16) or
       (value[1].toLong() shl 8) or
       value[0].toLong()
+  }
+
+  @ExperimentalUnsignedTypes
+  fun synchSafeBytesToInt(rawSize: ByteArray): Int = synchSafeBytesToLong(rawSize).toInt()
+
+  @ExperimentalUnsignedTypes
+  private fun synchSafeBytesToLong(rawSize: ByteArray): Long
+  {
+    require(rawSize.size == 4) { "ByteArray containing tag size must be 4 Bytes long" }
+    var result: Long = 0
+    rawSize.forEachIndexed { index, byte ->
+      if (byte.toUByte() and 0x80u > 0u) throw NumberFormatException("Synch-unsafe size is not supported")
+      result = result or ((byte.toLong() and 0x7f) shl (((rawSize.size - 1) - index) * 7))
+    }
+    return result
+  }
+
+  @ExperimentalUnsignedTypes
+  fun intToSynchSafeByteArray(size: Int): ByteArray = longToSynchSafeByteArray(size.toLong())
+
+  @ExperimentalUnsignedTypes
+  private fun longToSynchSafeByteArray(size: Long): ByteArray
+  {
+    val result = ByteArray(4)
+    require(size > 0) { "The size must be greater than 0" }
+    for (i in 0..3)
+    {
+      result[i] = (size shr (((3 - i) * 7) and 0x7f)).toByte()
+    }
+    return result
   }
 }

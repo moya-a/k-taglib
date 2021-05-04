@@ -11,5 +11,9 @@ package fr.amoya.ktaglib.file
 
 expect object FileReaderFactory
 {
-  fun createFileReader(fileName: String): FileReader
+  /**
+   * creates in instance of FileReader then load the file
+   * should call the load method internally when implemented
+   */
+  fun loadFileReader(fileName: String): FileReader
 }

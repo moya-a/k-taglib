@@ -1,7 +1,6 @@
 package fr.amoya.ktaglib.parsers.id3
 
 import fr.amoya.ktaglib.parsers.TagParser
-import fr.amoya.ktaglib.parsers.abstracts.AbstractTagParser
 
 
 /*
@@ -12,6 +11,5 @@ import fr.amoya.ktaglib.parsers.abstracts.AbstractTagParser
 */
 
 
-class Id3v22TagParser // (rawData: ByteArray) : TagParser, AbstractTagParser(rawData)
-{
-}
+class Id3v22TagParser : TagParser, AbstractId3v2TagParser()
+

@@ -10,11 +10,10 @@ version = "1.0-SNAPSHOT"
 
 repositories {
   mavenCentral()
-//  jcenter()
-//  google()
 }
+
 dependencies {
-  // implementation("org.junit.jupiter:junit-jupiter:5.7.0")
+  // Junit5 Test-Framework
   testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
   testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
   testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.0")

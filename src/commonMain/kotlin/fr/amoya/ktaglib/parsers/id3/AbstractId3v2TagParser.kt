@@ -1,14 +1,13 @@
 package fr.amoya.ktaglib.parsers.id3
 
 import fr.amoya.ktaglib.parsers.TagParser
-import fr.amoya.ktaglib.parsers.abstracts.AbstractTagParser
 import fr.amoya.ktaglib.parsers.id3.Id3Utils.getExtendedHeader
 import fr.amoya.ktaglib.parsers.id3.Id3Utils.getFrames
 import fr.amoya.ktaglib.parsers.id3.Id3Utils.getTagSize
 import fr.amoya.ktaglib.tags.Tag
-import fr.amoya.ktaglib.tags.id3.Id3ExtendedHeader
-import fr.amoya.ktaglib.tags.id3.Id3Header
-import fr.amoya.ktaglib.tags.id3.Id3Tag
+import fr.amoya.ktaglib.tags.id3v2.Id3ExtendedHeader
+import fr.amoya.ktaglib.tags.id3v2.Id3Header
+import fr.amoya.ktaglib.tags.id3v2.Id3v2Tag
 import fr.amoya.ktaglib.utils.ByteHelper
 import kotlin.experimental.and
 
@@ -19,7 +18,7 @@ import kotlin.experimental.and
 * @Author Arnaud Moya : <contact@amoya.fr>
 * Created on 01/05/2021
 */
-abstract class AbstractId3v2TagParser : TagParser, AbstractTagParser()
+abstract class AbstractId3v2TagParser : TagParser
 {
   @ExperimentalUnsignedTypes
   companion object Utils
@@ -40,7 +39,7 @@ abstract class AbstractId3v2TagParser : TagParser, AbstractTagParser()
       startOffset += 10
       extHeader = getExtendedHeader(rawData)
     }
-    return Id3Tag(
+    return Id3v2Tag(
       header = header,
       extendedHeader = extHeader,
       frames = getFrames(rawData.copyOfRange(startOffset, startOffset + header.tagSize))
