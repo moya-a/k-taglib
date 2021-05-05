@@ -1,8 +1,5 @@
 ### test audio files
-*.mp3
-*.wav
-*.flac
-*.ogg
+src/commonTest/resources/data/**
 
 ### Gradle
 gradle/**
