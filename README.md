@@ -1,5 +1,6 @@
 # K-TagLib
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=alert_status)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
+
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=ncloc)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
 
