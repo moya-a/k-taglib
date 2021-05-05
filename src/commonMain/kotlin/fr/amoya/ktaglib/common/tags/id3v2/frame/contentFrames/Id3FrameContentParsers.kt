@@ -19,7 +19,7 @@ object Id3FrameContentParsers
   fun rawParser(data: ByteArray): Id3FrameContent = Id3FrameContentRaw(data)
   fun textParser(data: ByteArray): Id3FrameContent
   {
-    require(data.isNotEmpty()) { "Data is empty" }
+    require(data.isNotEmpty())
     return if (data.last().toInt() == 0 && data.size > 1)
       Id3FrameContentText(data.decodeToString(1, data.size - 1))
     else
@@ -28,7 +28,7 @@ object Id3FrameContentParsers
 
   fun urlParser(data: ByteArray): Id3FrameContent
   {
-    require(data.isNotEmpty()) { "Data is empty" }
+    require(data.isNotEmpty())
     val cleanData = if (data.last().toInt() == 0) data.copyOfRange(0, data.size - 1) else data
     val delimiterIndex = getLastDelimiter(0x00, cleanData)
     return Id3FrameContentURL(
@@ -38,7 +38,7 @@ object Id3FrameContentParsers
 
   fun userUrlParser(data: ByteArray): Id3FrameContent
   {
-    require(data.isNotEmpty()) { "Data is empty" }
+    require(data.isNotEmpty())
     val cleanData = if (data.last().toInt() == 0) data.copyOfRange(0, data.size - 1) else data
     val delimiterIndex = getLastDelimiter(0x00, cleanData)
     return Id3FrameContentUserURL(
@@ -49,7 +49,7 @@ object Id3FrameContentParsers
 
   fun userTextParser(data: ByteArray): Id3FrameContent
   {
-    require(data.isNotEmpty()) { "Data is empty" }
+    require(data.isNotEmpty())
     val cleanData = if (data.last().toInt() == 0) data.copyOfRange(0, data.size - 1) else data
     val delimiterIndex = getLastDelimiter(0x00, cleanData)
     return Id3FrameContentUserText(
@@ -60,7 +60,7 @@ object Id3FrameContentParsers
 
   fun commentParser(data: ByteArray): Id3FrameContent
   {
-    require(data.isNotEmpty()) { "Data is empty" }
+    require(data.isNotEmpty())
     val delimiterIndex = getLastDelimiter(0x00, data)
     return Id3FrameContentComment(
       language = data.decodeToString(1, 4),
@@ -71,7 +71,7 @@ object Id3FrameContentParsers
 
   fun privateParser(data: ByteArray): Id3FrameContent
   {
-    require(data.isNotEmpty()) { "Data is empty" }
+    require(data.isNotEmpty())
     val delimiterIndex = getFirstDelimiter(0x00, data)
     return Id3frameContentPrivate(
       ownerId = data.decodeToString(0, delimiterIndex),
