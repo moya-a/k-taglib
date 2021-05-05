@@ -1,8 +1,14 @@
 package fr.amoya.ktaglib.common.tags.id3v2.frame.v24
 
 import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameContent
-import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3v2KnownFrame
+import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3v2KnownFrames
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.commentParser
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.privateParser
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.textParser
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.urlParser
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.userTextParser
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.userUrlParser
 
 
 /*
@@ -16,7 +22,7 @@ import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentPar
 enum class Id3v24KnownFrames(
   val description: String,
   val parser: (ByteArray) -> Id3FrameContent = Id3FrameContentParsers::rawParser
-) : Id3v2KnownFrame
+) : Id3v2KnownFrames
 {
 
   NONE("Unknown Frame"),
@@ -25,7 +31,7 @@ enum class Id3v24KnownFrames(
   APIC("Attached picture"),
   ASPI("Audio seek point index"),
 
-  COMM("Comments"),
+  COMM("Comments", ::commentParser),
   COMR("Commercial frame"),
 
   ENCR("Encryption method registration"),
@@ -42,7 +48,7 @@ enum class Id3v24KnownFrames(
 
   OWNE("Ownership frame"),
 
-  PRIV("Private frame"),
+  PRIV("Private frame", ::privateParser),
   PCNT("Play counter"),
   POPM("Popularimeter"),
   POSS("Position synchronisation frame"),
@@ -56,64 +62,66 @@ enum class Id3v24KnownFrames(
   SYLT("Synchronised lyric/text"),
   SYTC("Synchronised tempo codes"),
 
-  TALB("Album/Movie/Show title"),
-  TBPM("BPM (beats per minute)"),
-  TCOM("Composer"),
-  TCON("Content type"),
-  TCOP("Copyright message"),
-  TDEN("Encoding time"),
-  TDLY("Playlist delay"),
-  TDOR("Original release time"),
-  TDRC("Recording time"),
-  TDRL("Release time"),
-  TDTG("Tagging time"),
-  TENC("Encoded by"),
-  TEXT("Lyricist/Text writer"),
-  TFLT("File type"),
-  TIPL("Involved people list"),
-  TIT1("Content group description"),
-  TIT2("Title/songname/content description"),
-  TIT3("Subtitle/Description refinement"),
-  TKEY("Initial key"),
-  TLAN("Language(s)"),
-  TLEN("Length"),
-  TMCL("Musician credits list"),
-  TMED("Media type"),
-  TMOO("Mood"),
-  TOAL("Original album/movie/show title"),
-  TOFN("Original filename"),
-  TOLY("Original lyricist(s)/text writer(s)"),
-  TOPE("Original artist(s)/performer(s)"),
-  TOWN("File owner/licensee"),
-  TPE1("Lead performer(s)/Soloist(s)"),
-  TPE2("Band/orchestra/accompaniment"),
-  TPE3("Conductor/performer refinement"),
-  TPE4("Interpreted, remixed, or otherwise modified by"),
-  TPOS("Part of a set"),
-  TPRO("Produced notice"),
-  TPUB("Publisher"),
-  TRCK("Track number/Position in set"),
-  TRSN("Internet radio station name"),
-  TRSO("Internet radio station owner"),
-  TSOA("Album sort order"),
-  TSOP("Performer sort order"),
-  TSOT("Title sort order"),
-  TSRC("ISRC (international standard recording code)"),
-  TSSE("Software/Hardware and settings used for encoding"),
-  TSST("Set subtitle"),
-  TXXX("User defined text information frame"),
+  TALB("Album/Movie/Show title", ::textParser),
+  TBPM("BPM (beats per minute)", ::textParser),
+  TCOM("Composer", ::textParser),
+  TCON("Content type", ::textParser),
+  TCOP("Copyright message", ::textParser),
+  TDEN("Encoding time", ::textParser),
+  TDLY("Playlist delay", ::textParser),
+  TDOR("Original release time", ::textParser),
+  TDRC("Recording time", ::textParser),
+  TDRL("Release time", ::textParser),
+  TDTG("Tagging time", ::textParser),
+  TENC("Encoded by", ::textParser),
+  TEXT("Lyricist/Text writer", ::textParser),
+  TFLT("File type", ::textParser),
+  TIPL("Involved people list", ::textParser),
+  TIT1("Content group description", ::textParser),
+  TIT2("Title/songname/content description", ::textParser),
+  TIT3("Subtitle/Description refinement", ::textParser),
+  TKEY("Initial key", ::textParser),
+  TLAN("Language(s)", ::textParser),
+  TLEN("Length", ::textParser),
+  TMCL("Musician credits list", ::textParser),
+  TMED("Media type", ::textParser),
+  TMOO("Mood", ::textParser),
+  TOAL("Original album/movie/show title", ::textParser),
+  TOFN("Original filename", ::textParser),
+  TOLY("Original lyricist(s)/text writer(s)", ::textParser),
+  TOPE("Original artist(s)/performer(s)", ::textParser),
+  TOWN("File owner/licensee", ::textParser),
+  TPE1("Lead performer(s)/Soloist(s)", ::textParser),
+  TPE2("Band/orchestra/accompaniment", ::textParser),
+  TPE3("Conductor/performer refinement", ::textParser),
+  TPE4("Interpreted, remixed, or otherwise modified by", ::textParser),
+  TPOS("Part of a set", ::textParser),
+  TPRO("Produced notice", ::textParser),
+  TPUB("Publisher", ::textParser),
+  TRCK("Track number/Position in set", ::textParser),
+  TRSN("Internet radio station name", ::textParser),
+  TRSO("Internet radio station owner", ::textParser),
+  TSOA("Album sort order", ::textParser),
+  TSOP("Performer sort order", ::textParser),
+  TSOT("Title sort order", ::textParser),
+  TSRC("ISRC (international standard recording code)", ::textParser),
+  TSSE("Software/Hardware and settings used for encoding", ::textParser),
+  TSST("Set subtitle", ::textParser),
+
+  TXXX("User defined text information frame", ::userTextParser),
 
   UFID("Unique file identifier"),
   USER("Terms of use"),
   USLT("Unsynchronised lyric/text transcription"),
 
-  WCOM("Commercial information"),
-  WCOP("Copyright/Legal information"),
-  WOAF("Official audio file webpage"),
-  WOAR("Official artist/performer webpage"),
-  WOAS("Official audio source webpage"),
-  WORS("Official Internet radio station homepage"),
-  WPAY("Payment"),
-  WPUB("Publishers official webpage"),
-  WXXX("User defined URL link frame")
+  WCOM("Commercial information", ::urlParser),
+  WCOP("Copyright/Legal information", ::urlParser),
+  WOAF("Official audio file webpage", ::urlParser),
+  WOAR("Official artist/performer webpage", ::urlParser),
+  WOAS("Official audio source webpage", ::urlParser),
+  WORS("Official Internet radio station homepage", ::urlParser),
+  WPAY("Payment", ::urlParser),
+  WPUB("Publishers official webpage", ::urlParser),
+
+  WXXX("User defined URL link frame", ::userUrlParser)
 }

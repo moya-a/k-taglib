@@ -21,7 +21,7 @@ object ByteHelper
       ULong::class.simpleName  -> aggregateBytesToULong(rawData, numberOfBytes, offset) as T
       Int::class.simpleName    -> aggregateBytesToLong(rawData, numberOfBytes, offset).toInt() as T
       UInt::class.simpleName   -> aggregateBytesToULong(rawData, numberOfBytes, offset).toUInt() as T
-      String::class.simpleName -> aggregateBytesToString(rawData, numberOfBytes, offset) as T
+      String::class.simpleName -> rawData.decodeToString(offset, offset + numberOfBytes) as T
       else                     -> throw Exception("Type ${toClass.simpleName} is not supported")
     }
 

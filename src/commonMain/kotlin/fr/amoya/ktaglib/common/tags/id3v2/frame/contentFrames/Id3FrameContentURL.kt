@@ -11,12 +11,10 @@ import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameContent
 */
 
 
-data class Id3FrameContentComment(
-  var language: String,
-  var contentDescriptor: String,
-  var comment: String
+data class Id3FrameContentURL(
+  var url: String
 ) : Id3FrameContent
 {
-  override fun getContentAsString(): String = "[$language] $contentDescriptor : $comment"
-
+  override fun getContentAsString(): String = url
 }
+

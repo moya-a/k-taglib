@@ -1,12 +1,14 @@
 package fr.amoya.ktaglib.common.tags.id3v2.frame.v23
 
 import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameContent
-import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3v2KnownFrame
+import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3v2KnownFrames
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.commentParser
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.privateParser
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.textParser
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.urlParser
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.userTextParser
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.userUrlParser
 
 
 /*
@@ -20,7 +22,7 @@ import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentPar
 enum class Id3v23KnownFrames(
   val description: String,
   val parser: (ByteArray) -> Id3FrameContent = Id3FrameContentParsers::rawParser
-) : Id3v2KnownFrame
+) : Id3v2KnownFrames
 {
   NONE("Unknown Frame"),
 
@@ -96,19 +98,21 @@ enum class Id3v23KnownFrames(
   TSRC("ISRC (international standard recording code)", ::textParser),
   TSSE("Software/Hardware and settings used for encoding", ::textParser),
   TYER("Year", ::textParser),
+
   TXXX("User defined text information frame", ::userTextParser),
 
   UFID("Unique file identifier"),
   USER("Terms of use"),
   USLT("Unsychronized lyric/text transcription"),
 
-  WCOM("Commercial information"),
-  WCOP("Copyright/Legal information"),
+  WCOM("Commercial information", ::urlParser),
+  WCOP("Copyright/Legal information", ::urlParser),
   WOAF("Official audio file webpage"),
-  WOAR("Official artist/performer webpage"),
-  WOAS("Official audio source webpage"),
-  WORS("Official internet radio station homepage"),
-  WPAY("Payment"),
-  WPUB("Publishers official webpage"),
-  WXXX("User defined URL link frame")
+  WOAR("Official artist/performer webpage", ::urlParser),
+  WOAS("Official audio source webpage", ::urlParser),
+  WORS("Official internet radio station homepage", ::urlParser),
+  WPAY("Payment", ::urlParser),
+  WPUB("Publishers official webpage", ::urlParser),
+
+  WXXX("User defined URL link frame", ::userUrlParser)
 }

@@ -1,5 +1,7 @@
 package fr.amoya.ktaglib.common.tags.id3v2.frame
 
+import fr.amoya.ktaglib.common.tags.KnownFrames
+
 
 /*
 * fr.amoya.ktaglib.tags.id3v2.frame
@@ -9,4 +11,4 @@ package fr.amoya.ktaglib.common.tags.id3v2.frame
 */
 
 
-interface Id3v2KnownFrame
+interface Id3v2KnownFrames : KnownFrames

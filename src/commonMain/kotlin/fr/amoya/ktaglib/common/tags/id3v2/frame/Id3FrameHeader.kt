@@ -11,7 +11,7 @@ package fr.amoya.ktaglib.common.tags.id3v2.frame
 
 interface Id3FrameHeader
 {
-  var id: Id3v2KnownFrame
+  var id: Id3v2KnownFrames
   var size: Int
 }
 

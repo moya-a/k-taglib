@@ -1,11 +1,13 @@
 package fr.amoya.ktaglib.common.tags.id3v2.frame.v22
 
 import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameContent
-import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3v2KnownFrame
+import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3v2KnownFrames
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.commentParser
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.rawParser
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.textParser
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.urlParser
 import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.userTextParser
+import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentParsers.userUrlParser
 
 
 /*
@@ -18,7 +20,7 @@ import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentPar
 enum class Id3v22KnownFrames(
   val description: String,
   val parser: (ByteArray) -> Id3FrameContent = ::rawParser
-) : Id3v2KnownFrame
+) : Id3v2KnownFrames
 {
   NONE("Unknown Frame"),
 
@@ -84,17 +86,19 @@ enum class Id3v22KnownFrames(
   TT2("Title/Songname/Content description", ::textParser),
   TT3("Subtitle/Description refinement", ::textParser),
   TXT("Lyricist/text writer", ::textParser),
-  TXX("User defined text information frame", ::userTextParser),
   TYE("Year", ::textParser),
+
+  TXX("User defined text information frame", ::userTextParser),
 
   UFI("Unique file identifier"),
   ULT("Unsychronized lyric/text transcription"),
 
-  WAF("Official audio file webpage"),
-  WAR("Official artist/performer webpage"),
-  WAS("Official audio source webpage"),
-  WCM("Commercial information"),
-  WCP("Copyright/Legal information"),
-  WPB("Publishers official webpage"),
-  WXX("User defined URL link frame"),
+  WAF("Official audio file webpage", ::urlParser),
+  WAR("Official artist/performer webpage", ::urlParser),
+  WAS("Official audio source webpage", ::urlParser),
+  WCM("Commercial information", ::urlParser),
+  WCP("Copyright/Legal information", ::urlParser),
+  WPB("Publishers official webpage", ::urlParser),
+
+  WXX("User defined URL link frame", ::userUrlParser),
 }

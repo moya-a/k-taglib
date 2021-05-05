@@ -1,9 +1,9 @@
 package fr.amoya.ktaglib.common.tags
 
 import fr.amoya.ktaglib.common.TagSpec
-import fr.amoya.ktaglib.platformdependent.file.FileReaderFactory
 import fr.amoya.ktaglib.common.parsers.TagParser
 import fr.amoya.ktaglib.common.utils.Utils
+import fr.amoya.ktaglib.platformdependent.file.FileReaderFactory
 
 
 /*
@@ -16,10 +16,15 @@ import fr.amoya.ktaglib.common.utils.Utils
 
 interface Tag
 {
-  var tagVersion: TagSpec
-  var album: String
-  var title: String
-  var artist: String
+  val tagVersion: TagSpec
+  val title: String?
+  val artist: String?
+  val album: String?
+  val year: String?
+  val comment: String?
+  val genre: String?
+
+  operator fun get(framesId: KnownFrames): String?
 
   companion object
   {

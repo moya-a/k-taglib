@@ -36,7 +36,7 @@ class Id3v23TagParser : TagParser, AbstractId3v2TagParser()
 
   override fun parseFrameHeader(rawFrameHeader: ByteArray): Id3FrameHeader
   {
-    require(rawFrameHeader.size >= headerSize) { "Id3v2 Frame header must be 10 bytes" }
+    require(rawFrameHeader.size >= headerSize) { "Id3v2 Frame header must be $headerSize bytes" }
     val firstFlagByte = rawFrameHeader[8].toLong()
     val secondFlagByte = rawFrameHeader[9].toLong()
     val id = try
@@ -50,9 +50,11 @@ class Id3v23TagParser : TagParser, AbstractId3v2TagParser()
     return Id3v23FrameHeader(
       id = id,
       size = ByteHelper.aggregateBytes(rawFrameHeader.copyOfRange(4, 8), 4, UInt::class).toInt(),
+
       tagAlterPreservation = (firstFlagByte and frameTagAlterPreservationFlag) > 0,
       fileAlterPreservation = (firstFlagByte and frameFileAlterPreservationFlag) > 0,
       readOnly = (firstFlagByte and frameReadOnlyFlag) > 0,
+
       compression = (secondFlagByte and frameCompressionFlag) > 0,
       encryption = (secondFlagByte and frameEncryptionFlag) > 0,
       groupingIdentity = (secondFlagByte and frameGroupingIdentityFlag) > 0,

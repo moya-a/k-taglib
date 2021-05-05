@@ -50,7 +50,7 @@ abstract class AbstractId3v2TagParser : TagParser
     {
       extendedHeader = parseExtendedHeader(rawData)
     }
-    return Id3v2Tag(
+    return Id3v2Tag.createTag(
       header = tagHeader,
       extendedHeader = extendedHeader,
       frames = parseFrames(tagHeader.tagSize, rawData.copyOfRange(10, rawData.size))
@@ -75,12 +75,10 @@ abstract class AbstractId3v2TagParser : TagParser
       var nextFrame = frameContentEnd - 1
 
       // here I check if there might be another frame after a 0x00 is encountered
-      while (rawData[nextFrame].toInt() == 0 && nextFrame < tagSize) ++nextFrame
-
+      while (nextFrame < rawData.size && rawData[nextFrame].toInt() == 0 && nextFrame < tagSize) ++nextFrame
 
       cursor = if (nextFrame < frameContentEnd) frameContentEnd else nextFrame
     }
-    println(frames.fold(StringBuilder()) { acc, n -> acc.appendLine(n.toString()) }.toString())
     return frames
   }
 

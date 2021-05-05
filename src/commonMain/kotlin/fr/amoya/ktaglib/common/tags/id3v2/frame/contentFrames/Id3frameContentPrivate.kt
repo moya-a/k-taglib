@@ -15,3 +15,6 @@ data class Id3frameContentPrivate(
   var ownerId: String,
   var privateData: ByteArray
 ) : Id3FrameContent
+{
+  override fun getContentAsString(): String = "$ownerId : ${privateData.size} bytes of data"
+}

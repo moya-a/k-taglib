@@ -26,7 +26,7 @@ internal class UtilsTest
   @CsvFileSource(resources = ["/expected_results.csv"], numLinesToSkip = 1)
   fun `should return right tag specification`(filename: String, expectedType: String)
   {
-    val fPath = Path("src", "commonTest", "resources", filename)
+    val fPath = Path("src", "commonTest", "resources", "data", filename)
 
     Assumptions.assumeTrue(fPath.exists() && fPath.isRegularFile() && fPath.isReadable())
     assertEquals(expectedType, "${Utils.getTagSpec(fPath.toFile().readBytes())}")

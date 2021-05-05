@@ -4,6 +4,10 @@ import fr.amoya.ktaglib.common.parsers.TagParser
 import fr.amoya.ktaglib.common.tags.id3v2.Id3ExtendedHeader
 import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3Frame
 import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameHeader
+import fr.amoya.ktaglib.common.tags.id3v2.frame.v23.Id3v23KnownFrames
+import fr.amoya.ktaglib.common.tags.id3v2.frame.v24.Id3v24FrameHeader
+import fr.amoya.ktaglib.common.tags.id3v2.frame.v24.Id3v24KnownFrames
+import fr.amoya.ktaglib.common.utils.ByteHelper
 
 
 /*
@@ -36,11 +40,33 @@ class Id3v24TagParser : TagParser, AbstractId3v2TagParser()
 
   override fun parseFrameHeader(rawFrameHeader: ByteArray): Id3FrameHeader
   {
-    TODO("Not yet implemented")
+    require(rawFrameHeader.size >= headerSize) { "Id3v2 Frame header must be $headerSize bytes" }
+    val firstFlagByte = rawFrameHeader[8].toLong()
+    val secondFlagByte = rawFrameHeader[9].toLong()
+    val id = try
+    {
+      Id3v24KnownFrames.valueOf(rawFrameHeader.decodeToString(0, 4))
+    }
+    catch (_: Exception)
+    {
+      Id3v23KnownFrames.NONE
+    }
+    return Id3v24FrameHeader(
+      id = id,
+      size = ByteHelper.aggregateBytes(rawFrameHeader.copyOfRange(4, 8), 4, UInt::class).toInt(),
+
+      tagAlterPreservation = (firstFlagByte and frameTagAlterPreservationFlag) > 0,
+      fileAlterPreservation = (firstFlagByte and frameFileAlterPreservationFlag) > 0,
+      readOnly = (firstFlagByte and frameReadOnlyFlag) > 0,
+
+      compression = (secondFlagByte and frameCompressionFlag) > 0,
+      encryption = (secondFlagByte and frameEncryptionFlag) > 0,
+      groupingIdentity = (secondFlagByte and frameGroupingIdentityFlag) > 0,
+      dataLengthIndicator = (secondFlagByte and frameDataLengthIndicatorFlag) > 0,
+      unsynchronisation = (secondFlagByte and frameUnsynchronisationFlag) > 0
+    )
   }
 
-  override fun parseFrame(header: Id3FrameHeader, rawFrameContent: ByteArray): Id3Frame
-  {
-    TODO("Not yet implemented")
-  }
+  override fun parseFrame(header: Id3FrameHeader, rawFrameContent: ByteArray): Id3Frame =
+    Id3Frame(header, (header.id as Id3v24KnownFrames).parser(rawFrameContent))
 }

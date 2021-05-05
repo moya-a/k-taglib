@@ -14,3 +14,6 @@ import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameContent
 data class Id3FrameContentText(
   var content: String
 ) : Id3FrameContent
+{
+  override fun getContentAsString(): String = content
+}

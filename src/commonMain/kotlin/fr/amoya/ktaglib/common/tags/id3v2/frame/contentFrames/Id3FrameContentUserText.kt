@@ -15,3 +15,6 @@ data class Id3FrameContentUserText(
   var name: String,
   var value: String
 ) : Id3FrameContent
+{
+  override fun getContentAsString(): String = "$name : $value"
+}

@@ -1,5 +1,7 @@
 package fr.amoya.ktaglib.common.tags.id3v2
 
+import fr.amoya.ktaglib.common.TagSpec
+
 
 /*
 * fr.amoya.ktaglib.tags.id3
@@ -20,3 +22,16 @@ data class Id3Header(
   var footerPresent: Boolean = false,
   var tagSize: Int = 0
 )
+{
+  val version: TagSpec
+    get() = when (versionMajor)
+    {
+      2    -> TagSpec.ID3V22
+      3    -> TagSpec.ID3V23
+      4    -> TagSpec.ID3V24
+      else -> TagSpec.NONE
+    }
+
+  override fun toString(): String =
+    "Id3Header(fileIdentifier=$fileIdentifier, versionMajor=$versionMajor, tagSize=$tagSize)"
+}

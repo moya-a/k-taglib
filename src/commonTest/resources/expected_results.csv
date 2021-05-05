@@ -1,12 +1,112 @@
-FileName, Type
-"01. Linkin Park - Lost In The Echo.flac", FLAC
-"01-hard_driver_-_dont_give_up_now_(extended_mix).mp3", ID3V23
-"DJ D-Sfase & Ivan Dark - [A1] Numb Core.wav", RIFF
-"id3v1_001_basic.mp3", ID3V1
-"Median_test.ogg", OGG
-"SleepAway.mp3", ID3V23
-"Kalimba.mp3", ID3V23
-"Dr. Pops - La Tierra Sin Nombre.mp3", ID3V23
-"Dolphin Talk.mp3", ID3V23
-"Dope Boy Smile.mp3", ID3V24
-"Dr Philth - Warbot.mp3", ID3V24
+FileName,Type,#,Bitrate,Title,Album,Artist,Genres,Year,Duration
+01. Linkin Park - Lost In The Echo.flac,FLAC,1,320,Lost In The Echo,Living Things,Linkin Park,Electronic,2012,205
+01-hard_driver_-_dont_give_up_now_(extended_mix).mp3,ID3V23,1,1053,Don't Give Up Now (Extended Mix),Don't Give Up Now,Hard Driver,Techno,2021,312
+DJ D-Sfase & Ivan Dark - [A1] Numb Core.wav,RIFF,1,1411,Numb Core,Numb Core (Remix),DJ D-Sfase & Ivan Dark,Makina,2005,521
+id3v1_001_basic.mp3,ID3V1,,,Title,Album,Artist,Hip-Hop,2003,
+Median_test.ogg,OGG,,705,,,,,,114
+SleepAway.mp3,ID3V23,3,192,Sleep Away,Bob Acri,Bob Acri,Jazz,2004,200
+Kalimba.mp3,ID3V23,1,192,Kalimba,Ninja Tuna,Mr. Scruff,Electronic,2008,348
+Dr. Pops - La Tierra Sin Nombre.mp3,ID3V23,,,,,,,,
+Dolphin Talk.mp3,ID3V23,,128,Dolphin Talk,,,osef,,253
+Dope Boy Smile.mp3,ID3V24,,128,Dope Boy Smile,,Devon Rivers & TWB,,,380
+Dr Philth - Warbot.mp3,ID3V24,,320,Warbot,The Dayn EP,Dr. Philth,Dubstep,2010,283
+# files from taglib tests,,,,,,,,,
+005411.id3,ID3V24,,,,,,,,
+64bit.mp4,NONE,,,,,,,,
+alaw.aifc,NONE,,,,,,,,
+alaw.wav,RIFF,,128,,,,,,3
+ape-id3v1.mp3,ID3V1,,32,,,,,,2
+ape-id3v2.mp3,ID3V24,,32,Title,,,,,2
+ape.mp3,NONE,,32,,,,,,2
+bladeenc.mp3,NONE,,64,,,,,,3
+blank_video.m4v,NONE,,93,,,,,,0
+broken-tenc.id3,ID3V24,,,,,,,,
+changed.mod,NONE,,,,,,,,
+changed.s3m,NONE,,,,,,,,
+changed.xm,NONE,,,,,,,,
+click.mpc,NONE,,,,,,,,
+click.wv,NONE,,,,,,,,
+compressed_id3_frame.mp3,ID3V23,,,,,,,,
+correctness_gain_silent_output.opus,OGG,,,,,,,,
+covr-junk.m4a,NONE,,2,,,Test Artist,,,3
+dsd_stereo.wv,NONE,,,,,,,,
+duplicate_id3v2.aiff,NONE,,,,,,,,
+duplicate_id3v2.mp3,ID3V23,,128,TitleXXXX,AlbumXXXX,ArtistXXXX,,,0
+duplicate_tags.wav,RIFF,,32,Title2,Album2,Artist2,,,3
+empty.aiff,NONE,,,,,,,,
+empty_alac.m4a,NONE,,2,empty_alac,,,,,3
+empty_flac.oga,OGG,,1411,,,,,,3
+empty.ogg,OGG,,1411,,,,,,
+empty-seektable.flac,FLAC,,0,,,,,,217
+empty.spx,OGG,,,,,,,,
+empty.tta,NONE,,,,,,,,
+empty_vorbis.oga,OGG,,1411,,,,,,3
+empty.wav,RIFF,,32,,,,,,3
+excessive_alloc.aif,NONE,,,,,,,,
+excessive_alloc.mp3,ID3V24,,,,,,,,
+float64.wav,RIFF,,5644,,,,,,0
+four_channels.wv,NONE,,,,,,,,
+garbage.mp3,NONE,,64,,,,,,0
+gnre.m4a,NONE,,2,,,,Ska,,3
+has-tags.m4a,NONE,,2,,,Test Artist,,,3
+id3v22-tda.mp3,ID3V22,1,32,,,,,2010,0
+ilst-is-last.m4a,NONE,1,159,Intro,"1995-03-22 Brisbane, Australia - Entertainment Centre",Pearl Jam,,1995,65
+infloop.m4a,NONE,6,310832,Udo,Complete Singles Collection Vol.1,POCKET BISCUITS,,2004,270
+infloop.mpc,NONE,,,,,,,,
+infloop.wav,RIFF,,88,,,,,,1
+infloop.wv,NONE,,,,,,,,
+invalid-frames1.mp3,NONE,,160,,,,,,0
+invalid-frames2.mp3,NONE,,192,,,,,,0
+invalid-frames3.mp3,NONE,,,,,,,,
+lame_cbr.mp3,ID3V23,,,,,,,,
+lame_vbr.mp3,ID3V23,,70,,,,,,1887
+longloop.ape,NONE,,,,,,,,
+lossless.wma,NONE,,169,,,,,,3
+lowercase-fields.ogg,OGG,,1411,,,,,,3
+mac-390-hdr.ape,NONE,,,,,,,,
+mac-396.ape,NONE,,,,,,,,
+mac-399.ape,NONE,,,,,,,,
+mac-399-id3v2.ape,ID3V23,,,,,,,,
+mac-399-tagged.ape,ID3V1,,,,,,,,
+mpeg2.mp3,NONE,,25,,,,,,5387
+multiple-vc.flac,FLAC,,12,,,Artist 1; Artist 2;,,,3
+no-extension,NONE,,,,,,,,
+noise.aif,NONE,,,,,,,,
+noise_odd.aif,NONE,,,,,,,,
+no_length.wv,NONE,,,,,,,,
+non_standard_rate.wv,NONE,,,,,,,,
+no-tags.3g2,NONE,,32,,,,,,16
+no-tags.flac,FLAC,,12,,,,,,3
+no-tags.m4a,NONE,,2,,,,,,3
+pcm_with_fact_chunk.wav,RIFF,,32,,,,,,3
+rare_frames.mp3,ID3V24,,233,,,,13,,
+segfault2.mpc,NONE,,,,,,,,
+segfault.aif,NONE,,,,,,,,
+segfault.mpc,NONE,,,,,,,,
+segfault.oga,OGG,,,,,,,,
+segfault.wav,RIFF,,,,,,,,
+silence-1.wma,NONE,,64,test,,,,,3
+silence-44-s.flac,FLAC,2,135,Silence,Quod Libet Test Data,piman; jzig,Silence,2004,3
+sinewave.flac,FLAC,,172,,,,,,3
+stripped.xm,NONE,,,,,,,,
+sv4_header.mpc,NONE,,,,,,,,
+sv5_header.mpc,NONE,,,,,,,,
+sv8_header.mpc,NONE,,,,,,,,
+tagged.tta,ID3V23,,,,,,,,
+tagged.wv,ID3V1,,,,,,,,
+test.it,NONE,,,,,,,,
+test.mod,NONE,,,,,,,,
+test.ogg,OGG,,1411,,,,,,3
+test.s3m,NONE,,,,,,,,
+test.xm,NONE,,,,,,,,
+toc_many_children.mp3,ID3V24,,192,,,,,,0
+uint8we.wav,RIFF,,128,,,,,2003,2
+unsupported-extension.xx,NONE,,,,,,,,
+unsynch.id3,ID3V23,,,,,,,,
+w000.mp3,ID3V23,,,,,,,,
+xing.mp3,NONE,,32,,,,,,2
+zerodiv.ape,NONE,,,,,,,,
+zerodiv.mpc,NONE,,,,,,,,
+zero-length-mdat.m4a,NONE,,24,Sine wave 440Hz,,,,,1
+zero-size-chunk.wav,RIFF,,1411,,,,,,
+zero-sized-padding.flac,FLAC,,12,,,,,,3

@@ -1,6 +1,7 @@
 package fr.amoya.ktaglib.common.parsers
 
 import fr.amoya.ktaglib.common.TagSpec
+import fr.amoya.ktaglib.common.parsers.id3.v1.Id3v1TagParser
 import fr.amoya.ktaglib.common.parsers.id3.v2.Id3v22TagParser
 import fr.amoya.ktaglib.common.parsers.id3.v2.Id3v23TagParser
 import fr.amoya.ktaglib.common.parsers.id3.v2.Id3v24TagParser
@@ -17,16 +18,22 @@ interface TagParser
 {
   fun parse(rawData: ByteArray): Tag
 
+  @ExperimentalUnsignedTypes
   companion object
   {
-    @ExperimentalUnsignedTypes
+    private val id3v1TagParser: Id3v1TagParser by lazy { Id3v1TagParser() }
+    private val id3v22TagParser: Id3v22TagParser by lazy { Id3v22TagParser() }
+    private val id3v23TagParser: Id3v23TagParser by lazy { Id3v23TagParser() }
+    private val id3v24TagParser: Id3v24TagParser by lazy { Id3v24TagParser() }
+
+
     fun getParser(type: TagSpec): TagParser =
       when (type)
       {
-        TagSpec.ID3V22 -> Id3v22TagParser()
-        TagSpec.ID3V23 -> Id3v23TagParser()
-        TagSpec.ID3V24 -> Id3v24TagParser()
-        TagSpec.ID3V1  -> throw NotImplementedError("No parser found for type : $type")
+        TagSpec.ID3V1  -> id3v1TagParser
+        TagSpec.ID3V22 -> id3v22TagParser
+        TagSpec.ID3V23 -> id3v23TagParser
+        TagSpec.ID3V24 -> id3v24TagParser
         TagSpec.FLAC   -> throw NotImplementedError("No parser found for type : $type")
         TagSpec.RIFF   -> throw NotImplementedError("No parser found for type : $type")
         TagSpec.OGG    -> throw NotImplementedError("No parser found for type : $type")

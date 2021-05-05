@@ -25,9 +25,9 @@ object Utils
       else                       ->
         when
         {
-          isAPE(rawData)   -> TagSpec.APE
+          isAPE(rawData) -> TagSpec.APE
           isId3v1(rawData) -> TagSpec.ID3V1
-          else             -> TagSpec.NONE
+          else -> TagSpec.NONE
         }
     }
 
@@ -38,5 +38,12 @@ object Utils
    * ID3v1 is a bit different as the tags are at the end of the file, hence the takeLast call
    */
   private fun isId3v1(rawData: ByteArray): Boolean =
-    ByteHelper.aggregateBytes(rawData.copyOfRange(rawData.size - 128, rawData.size), 3, Long::class) == TagSpec.ID3V1.magicNumber
+    if (rawData.size > 128)
+      ByteHelper.aggregateBytes(
+        rawData.copyOfRange(rawData.size - 128, rawData.size),
+        3,
+        Long::class
+      ) == TagSpec.ID3V1.magicNumber
+    else
+      false
 }

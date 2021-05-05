@@ -1,7 +1,7 @@
 package fr.amoya.ktaglib.common.tags.id3v2.frame.v23
 
 import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameHeader
-import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3v2KnownFrame
+import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3v2KnownFrames
 
 
 /*
@@ -12,7 +12,7 @@ import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3v2KnownFrame
 */
 
 data class Id3v23FrameHeader(
-  override var id: Id3v2KnownFrame = Id3v23KnownFrames.NONE,
+  override var id: Id3v2KnownFrames = Id3v23KnownFrames.NONE,
   override var size: Int = 0,
   var tagAlterPreservation: Boolean = false,
   var fileAlterPreservation: Boolean = false,

@@ -15,6 +15,8 @@ data class Id3FrameContentRaw(
   var content: ByteArray
 ) : Id3FrameContent
 {
+  override fun getContentAsString(): String = "${content.size} bytes of binary data"
+
   override fun toString(): String = "Id3FrameContentRaw(content=${content.size} bytes)"
 }
 

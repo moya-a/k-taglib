@@ -8,3 +8,6 @@ package fr.amoya.ktaglib.common.tags.id3v2.frame
 */
 
 interface Id3FrameContent
+{
+  fun getContentAsString(): String
+}
