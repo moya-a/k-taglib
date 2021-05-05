@@ -12,7 +12,5 @@ package fr.amoya.ktaglib.platformdependent.file
 interface FileReader
 {
   fun load(filename: String)
-  fun existsAsFile(): Boolean
-  fun isReadable(): Boolean
   fun readBytes(): ByteArray
 }

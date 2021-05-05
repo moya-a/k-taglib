@@ -1,7 +1,5 @@
 package fr.amoya.ktaglib.platformdependent.file
 
-import fr.amoya.ktaglib.platformdependent.file.FileReader
-
 
 /*
 * fr.amoya.ktaglib.file
@@ -16,16 +14,6 @@ class NativeFileReader : FileReader
 
 
   override fun load(filename: String)
-  {
-    TODO("Not yet implemented")
-  }
-
-  override fun existsAsFile(): Boolean
-  {
-    TODO("Not yet implemented")
-  }
-
-  override fun isReadable(): Boolean
   {
     TODO("Not yet implemented")
   }
