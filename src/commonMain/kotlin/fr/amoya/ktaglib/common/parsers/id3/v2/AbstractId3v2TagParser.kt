@@ -7,6 +7,7 @@ import fr.amoya.ktaglib.common.tags.id3v2.Id3Header
 import fr.amoya.ktaglib.common.tags.id3v2.Id3v2Tag
 import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3Frame
 import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameHeader
+import fr.amoya.ktaglib.common.tags.id3v2.frame.v23.Id3v23KnownFrames
 import fr.amoya.ktaglib.common.utils.ByteHelper
 import kotlin.experimental.and
 
@@ -69,7 +70,8 @@ abstract class AbstractId3v2TagParser : TagParser
 
       val frameHeader = parseFrameHeader(rawData.copyOfRange(frameHeaderStart, frameHeaderEnd))
       val frameContentEnd = frameHeaderEnd + frameHeader.size
-      frames.add(parseFrame(frameHeader, rawFrameContent = rawData.copyOfRange(frameHeaderEnd, frameContentEnd)))
+      if (frameHeader.id !== Id3v23KnownFrames.NONE)
+        frames.add(parseFrame(frameHeader, rawFrameContent = rawData.copyOfRange(frameHeaderEnd, frameContentEnd)))
       var nextFrame = frameContentEnd - 1
 
       // here I check if there might be another frame after a 0x00 is encountered
