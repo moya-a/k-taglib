@@ -23,7 +23,7 @@ class JvmFileReader : FileReader
 
   override fun readBytes(): ByteArray =
     file?.run {
-      if (this.exists() && this.isFile && Files.isReadable(this.toPath()))
+      if (exists() && isFile && Files.isReadable(toPath()))
         readBytes()
       else
         throw IllegalArgumentException("Could not read file")

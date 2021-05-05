@@ -30,12 +30,15 @@ internal class TagParserTest
   @CsvFileSource(resources = ["/expected_results.csv"], numLinesToSkip = 1)
   fun shouldThrowAnError(filename: String, fileType: String)
   {
-    val fPath = Path("src", "commonTest", "resources", filename)
+    val fPath = Path("src", "commonTest", "resources", "data", filename)
     Assumptions.assumingThat(!(fPath.exists() && fPath.isRegularFile() && fPath.isReadable()))
     {
       assertThrows<IllegalArgumentException> { Tag.getTag(fPath.absolutePathString()) }
     }
-    Assumptions.assumingThat(!fileType.contains("ID3V2"))
+    Assumptions.assumingThat(
+      !fileType.contains("ID3") &&
+      (fileType.contains("FLAC") || fileType.contains("RIFF") || fileType.contains("OGG") || fileType.contains("APE"))
+    )
     {
       assertThrows<NotImplementedError> { Tag.getTag(fPath.absolutePathString()) }
     }
