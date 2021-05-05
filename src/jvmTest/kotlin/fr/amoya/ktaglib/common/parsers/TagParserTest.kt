@@ -26,9 +26,9 @@ internal class TagParserTest
   ** Error Checking
   */
   @ParameterizedTest(name = "Should throw an error : {0}")
-  @Order(0)
+  @DisplayName("Should throw an error")
   @CsvFileSource(resources = ["/expected_results.csv"], numLinesToSkip = 1)
-  fun `should throw an error`(filename: String, fileType: String)
+  fun shouldThrowAnError(filename: String, fileType: String)
   {
     val fPath = Path("src", "commonTest", "resources", filename)
     Assumptions.assumingThat(!(fPath.exists() && fPath.isRegularFile() && fPath.isReadable()))
@@ -45,9 +45,9 @@ internal class TagParserTest
   ** Actual Parsing Check
   */
   @ParameterizedTest(name = "Should Parse : {1} - {0}")
-  @Order(1)
+  @DisplayName("Should Parse Tag")
   @CsvFileSource(resources = ["/expected_results.csv"], numLinesToSkip = 1)
-  fun `should parse tag`(
+  fun shouldParseTag(
     filename: String,
     fileType: String,
     no: Int?,

@@ -38,12 +38,10 @@ object Utils
    * ID3v1 is a bit different as the tags are at the end of the file, hence the takeLast call
    */
   private fun isId3v1(rawData: ByteArray): Boolean =
-    if (rawData.size > 128)
-      ByteHelper.aggregateBytes(
-        rawData.copyOfRange(rawData.size - 128, rawData.size),
-        3,
-        Long::class
-      ) == TagSpec.ID3V1.magicNumber
-    else
-      false
+    rawData.size > 128 &&
+    (ByteHelper.aggregateBytes(
+      rawData.copyOfRange(rawData.size - 128, rawData.size),
+      3,
+      Long::class
+    ) == TagSpec.ID3V1.magicNumber)
 }
