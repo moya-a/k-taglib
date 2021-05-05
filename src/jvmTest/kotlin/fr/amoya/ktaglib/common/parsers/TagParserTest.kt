@@ -1,11 +1,14 @@
 package fr.amoya.ktaglib.common.parsers
 
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import fr.amoya.ktaglib.common.tags.Tag
 import fr.amoya.ktaglib.common.tags.id3v2.Id3v2Tag
 import fr.amoya.ktaglib.common.tags.id3v2.Id3v2Tag.Companion.printTag
 import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.CsvFileSource
+import java.util.stream.Stream
 import kotlin.io.path.*
 import kotlin.test.assertEquals
 
@@ -17,10 +20,74 @@ import kotlin.test.assertEquals
 * Created on 05/05/2021
 */
 
+data class ExpectedResult(
+  val filename: String,
+  val fileType: String?,
+  val no: Int?,
+  val bitrate: Int?,
+  val title: String?,
+  val album: String?,
+  val artist: String?,
+  val genre: String?,
+  val year: Int?,
+  val duration: Int?
+)
+
+data class Argument(
+  val filename: String,
+  val expectedResult: ExpectedResult,
+  val tag: Tag?
+)
+
 @ExperimentalUnsignedTypes
 @ExperimentalPathApi
 internal class TagParserTest
 {
+
+  companion object CSVLoader
+  {
+    @JvmStatic
+    val tagsAndResults: MutableList<Arguments> = mutableListOf()
+
+    @JvmStatic
+    internal fun setUp()
+    {
+      val csvPath = Path("src", "commonTest", "resources", "expected_results.csv")
+      csvReader().open(csvPath.absolutePathString())
+      {
+        readAllWithHeaderAsSequence().forEach { row ->
+          row["Filename"]?.let {
+            val result = ExpectedResult(
+              filename = it,
+              fileType = row["Type"],
+              no = row["#"]?.toInt(),
+              bitrate = row["Bitrate"]?.toInt(),
+              title = row["Title"],
+              album = row["Album"],
+              artist = row["Artist"],
+              genre = row["Genres"],
+              year = row["Year"]?.toInt(),
+              duration = row["Duration"]?.toInt()
+            )
+            try
+            {
+              val fPath = Path("src", "commonTest", "resources", "data", it)
+              tagsAndResults.add(Arguments.of(result, Tag.getTag(fPath.absolutePathString())))
+            }
+            catch (_: Exception)
+            {
+              tagsAndResults.add(Arguments.of(result, null))
+            }
+          }
+        }
+      }
+
+    }
+
+    @JvmStatic
+    fun testTagProvider(): Stream<Arguments> = tagsAndResults.stream()
+  }
+
 
   /*
   ** Error Checking
