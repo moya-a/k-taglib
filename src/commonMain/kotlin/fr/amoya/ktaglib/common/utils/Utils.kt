@@ -13,7 +13,7 @@ import fr.amoya.ktaglib.common.TagSpec
 @ExperimentalUnsignedTypes
 object Utils
 {
-  fun getTagSpec(rawData: ByteArray): TagSpec =
+  fun getTagSpec(rawData: Sequence<Byte>): TagSpec =
     when (ByteHelper.aggregateBytes(rawData, 4, Long::class))
     {
       TagSpec.ID3V24.magicNumber -> TagSpec.ID3V24
@@ -25,23 +25,22 @@ object Utils
       else                       ->
         when
         {
-          isAPE(rawData) -> TagSpec.APE
+          isAPE(rawData)   -> TagSpec.APE
           isId3v1(rawData) -> TagSpec.ID3V1
-          else -> TagSpec.NONE
+          else             -> TagSpec.NONE
         }
     }
 
-  private fun isAPE(rawData: ByteArray): Boolean =
+  private fun isAPE(rawData: Sequence<Byte>): Boolean =
     ByteHelper.aggregateBytes(rawData, 8, Long::class) == TagSpec.APE.magicNumber
 
   /**
-   * ID3v1 is a bit different as the tags are at the end of the file, hence the takeLast call
+   * ID3v1 is a bit different as the tag is at the end of the file
    */
-  private fun isId3v1(rawData: ByteArray): Boolean =
-    rawData.size > 128 &&
-    (ByteHelper.aggregateBytes(
-      rawData.copyOfRange(rawData.size - 128, rawData.size),
-      3,
-      Long::class
-    ) == TagSpec.ID3V1.magicNumber)
+  private fun isId3v1(rawData: Sequence<Byte>): Boolean
+  {
+    val lst = rawData.toList()
+    return lst.size > 128 && ByteHelper
+      .aggregateBytes(lst.takeLast(128).asSequence(), 3, Long::class) == TagSpec.ID3V1.magicNumber
+  }
 }

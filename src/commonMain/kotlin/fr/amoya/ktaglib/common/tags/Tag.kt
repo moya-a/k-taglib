@@ -3,6 +3,7 @@ package fr.amoya.ktaglib.common.tags
 import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.parsers.TagParser
 import fr.amoya.ktaglib.common.utils.Utils
+import fr.amoya.ktaglib.common.utils.toByteArray
 import fr.amoya.ktaglib.platformdependent.file.FileReaderFactory
 
 

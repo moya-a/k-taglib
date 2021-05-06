@@ -18,7 +18,7 @@ class NativeFileReader : FileReader
     TODO("Not yet implemented")
   }
 
-  override fun readBytes(): ByteArray
+  override fun readBytes(): Sequence<Byte>
   {
     TODO("Not yet implemented")
   }

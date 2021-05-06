@@ -22,35 +22,37 @@ class Id3v1TagParser : AbstractTagParser(), TagParser
     const val minTagSize: Int = 128
 
     const val titleStartByte = 3
-    const val titleEndByte = 33
+    const val titleSize = 30
 
     const val artistStartByte = 33
-    const val artistEndByte = 63
+    const val artistSize = 30
 
     const val albumStartByte = 63
-    const val albumEndByte = 93
+    const val albumSize = 30
 
     const val yearStartByte = 93
-    const val yearEndByte = 97
+    const val yearSize = 4
 
     const val commentStartByte = 97
-    const val commentEndByte = 127
+    const val commentSize = 30
 
     const val genreByte = 127
   }
 
-  override fun parse(rawData: ByteArray): Tag
+  override fun parse(rawData: Sequence<Byte>): Tag
   {
-    require(rawData.size >= minTagSize) { "The file must be at least $minTagSize bytes to contains an id3v1 tag" }
-    val rawTag = rawData.copyOfRange(rawData.size - 128, rawData.size)
-    require(checkTag(rawTag.copyOfRange(0, 3))) { "Id3v1 does not contain mandatory TAG" }
+    val bytes = rawData.toList()
+    require(bytes.size >= minTagSize) { "The file must be at least $minTagSize bytes to contains an id3v1 tag" }
+    val rawTag = bytes.takeLast(128)
+
+    require(checkTag(rawTag.take(3).toByteArray())) { "Id3v1 does not contain mandatory TAG" }
 
     return Id3v1Tag(
-      title = decode(rawTag.copyOfRange(titleStartByte, titleEndByte)),
-      artist = decode(rawTag.copyOfRange(artistStartByte, artistEndByte)),
-      album = decode(rawTag.copyOfRange(albumStartByte, albumEndByte)),
-      year = rawTag.decodeToString(yearStartByte, yearEndByte),
-      comment = decode(rawTag.copyOfRange(commentStartByte, commentEndByte)),
+      title = decode(rawTag.drop(titleStartByte).take(titleSize).toByteArray()),
+      artist = decode(rawTag.drop(artistStartByte).take(artistSize).toByteArray()),
+      album = decode(rawTag.drop(albumStartByte).take(albumSize).toByteArray()),
+      year = rawTag.drop(yearStartByte).take(yearSize).toByteArray().decodeToString(),
+      comment = decode(rawTag.drop(commentStartByte).take(commentSize).toByteArray()),
       genre = Id3v1KnownGenre.getGenre(rawTag[genreByte].toInt()).genre
     )
   }

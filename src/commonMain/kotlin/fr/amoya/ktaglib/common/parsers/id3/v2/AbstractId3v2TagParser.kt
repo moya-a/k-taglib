@@ -10,6 +10,7 @@ import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3Frame
 import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameHeader
 import fr.amoya.ktaglib.common.tags.id3v2.frame.v23.Id3v23KnownFrames
 import fr.amoya.ktaglib.common.utils.ByteHelper
+import fr.amoya.ktaglib.common.utils.toByteArray
 import kotlin.experimental.and
 
 
@@ -28,6 +29,7 @@ abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
   {
     // general
     const val headerSize: Int = 10
+    const val extendedHeaderSize: Int = 10
     const val minimalFrameSize: Int = 11
 
     // tag flags
@@ -43,24 +45,23 @@ abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
   protected abstract fun parseFrame(header: Id3FrameHeader, rawFrameContent: ByteArray): Id3Frame
 
 
-  override fun parse(rawData: ByteArray): Tag
+  override fun parse(rawData: Sequence<Byte>): Tag
   {
-    val tagHeader = parseTagHeader(rawData)
+    val tagHeader = parseTagHeader(rawData.toByteArray(headerSize))
     var extendedHeader: Id3ExtendedHeader? = null
     if (tagHeader.extendedHeader)
     {
-      extendedHeader = parseExtendedHeader(rawData)
+      extendedHeader = parseExtendedHeader(rawData.drop(headerSize).toByteArray(extendedHeaderSize))
     }
     return Id3v2Tag.createTag(
       header = tagHeader,
       extendedHeader = extendedHeader,
-      frames = parseFrames(tagHeader.tagSize, rawData.copyOfRange(10, rawData.size))
+      frames = parseFrames(tagHeader.tagSize, rawData.drop(10))
     )
   }
 
-  private fun parseFrames(tagSize: Int, rawData: ByteArray): Collection<Id3Frame>
+  private fun parseFrames(tagSize: Int, rawData: Sequence<Byte>): Collection<Id3Frame>
   {
-    require(rawData.size >= minimalFrameSize) { "Frame Header + content must be at least $minimalFrameSize bytes" }
     val frames: MutableList<Id3Frame> = mutableListOf()
     var cursor = 0
 
@@ -69,14 +70,20 @@ abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
       val frameHeaderStart = cursor
       val frameHeaderEnd = frameHeaderStart + headerSize
 
-      val frameHeader = parseFrameHeader(rawData.copyOfRange(frameHeaderStart, frameHeaderEnd))
-      val frameContentEnd = frameHeaderEnd + frameHeader.size
-      if (frameHeader.id !== Id3v23KnownFrames.NONE)
-        frames.add(parseFrame(frameHeader, rawFrameContent = rawData.copyOfRange(frameHeaderEnd, frameContentEnd)))
-      var nextFrame = frameContentEnd - 1
+      val frameRawHeader = rawData.drop(frameHeaderStart).toByteArray(headerSize)
+      val frameHeaderParsed = parseFrameHeader(frameRawHeader)
+
+      if (frameHeaderParsed.id !== Id3v23KnownFrames.NONE)
+      {
+        val frameRawContent = rawData.drop(frameHeaderEnd).toByteArray(frameHeaderParsed.size)
+        frames.add(parseFrame(frameHeaderParsed, frameRawContent))
+      }
+
+      val frameContentEnd = frameHeaderEnd + frameHeaderParsed.size
+      val nextFrame = frameContentEnd - 1
 
       // here I check if there might be another frame after a 0x00 is encountered
-      while (nextFrame < rawData.size && rawData[nextFrame].toInt() == 0 && nextFrame < tagSize) ++nextFrame
+      // while (nextFrame < rawData.size && rawData[nextFrame].toInt() == 0 && nextFrame < tagSize) ++nextFrame
 
       cursor = if (nextFrame < frameContentEnd) frameContentEnd else nextFrame
     }
@@ -89,7 +96,7 @@ abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
     require(rawHeader.size >= headerSize) { "Id3 header size must be $headerSize bytes" }
     return Id3Header()
       .apply {
-        fileIdentifier = ByteHelper.aggregateBytes(rawHeader, 3, String::class)
+        fileIdentifier = rawHeader.decodeToString(0, 3)
         versionMajor = rawHeader[3].toInt()
         versionMinor = rawHeader[4].toInt()
         unsynchronisation = rawHeader[5] and tagUnsynchronisationFlag > 0

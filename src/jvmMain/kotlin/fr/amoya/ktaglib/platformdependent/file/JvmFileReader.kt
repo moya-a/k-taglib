@@ -25,9 +25,9 @@ class JvmFileReader : FileReader
       throw IllegalArgumentException("There were a problem with your file, it either does not exist or is not readable")
   }
 
-  override fun readBytes(): ByteArray =
+  override fun readBytes(): Sequence<Byte> =
     input?.run {
-      readBytes()
+      readAllBytes().asSequence()
     } ?: throw IllegalStateException("File is not loaded")
 
   override fun close()

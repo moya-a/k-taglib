@@ -20,8 +20,8 @@ import fr.amoya.ktaglib.common.tags.id3v2.frame.contentFrames.Id3FrameContentPar
 
 
 enum class Id3v23KnownFrames(
-  val description: String,
-  val parser: (ByteArray) -> Id3FrameContent = Id3FrameContentParsers::rawParser
+  override val description: String,
+  override val parser: (ByteArray) -> Id3FrameContent = Id3FrameContentParsers::rawParser
 ) : Id3v2KnownFrames
 {
   NONE("Unknown Frame"),

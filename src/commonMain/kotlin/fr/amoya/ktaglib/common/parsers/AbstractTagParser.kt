@@ -13,7 +13,7 @@ import fr.amoya.ktaglib.common.tags.Tag
 
 abstract class AbstractTagParser : TagParser
 {
-  override fun tryParse(rawData: ByteArray): Tag? =
+  override fun tryParse(rawData: Sequence<Byte>): Tag? =
     try
     {
       parse(rawData)
