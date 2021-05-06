@@ -203,46 +203,46 @@ internal class TagParserTest
   @ParameterizedTest(name = "[TITLE] ({2}) : {0} == {1}")
   @DisplayName("Should return title : {0}")
   @MethodSource("testTitleProvider")
-  fun shouldReturnTitle(expected: String?, result: String?, filename: String, fileType: String)
+  fun shouldReturnTitle(expectedTitle: String?, result: String?, filename: String, fileType: String)
   {
     Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
-    assertEquals(expected, result)
+    assertEquals(expectedTitle, result)
   }
 
   @ParameterizedTest(name = "[ARTIST] ({2}) : {0} == {1}")
   @DisplayName("Should return artist : {0}")
   @MethodSource("testArtistProvider")
-  fun shouldReturnArtist(expected: String?, result: String?, filename: String, fileType: String)
+  fun shouldReturnArtist(expectedArtist: String?, result: String?, filename: String, fileType: String)
   {
     Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
-    assertEquals(expected, result)
+    assertEquals(expectedArtist, result)
   }
 
   @ParameterizedTest(name = "[ALBUM] ({2}) : {0} == {1}")
   @DisplayName("Should return album : {0}")
   @MethodSource("testAlbumProvider")
-  fun shouldReturnAlbum(expected: String?, result: String?, filename: String, fileType: String)
+  fun shouldReturnAlbum(expectedAlbum: String?, result: String?, filename: String, fileType: String)
   {
     Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
-    assertEquals(expected, result)
+    assertEquals(expectedAlbum, result)
   }
 
   @ParameterizedTest(name = "[GENRE] ({2}) : {0} == {1}")
   @DisplayName("Should return genre : {0}")
   @MethodSource("testGenreProvider")
-  fun shouldReturnGenre(expected: String?, result: String?, filename: String, fileType: String)
+  fun shouldReturnGenre(expectedGenre: String?, result: String?, filename: String, fileType: String)
   {
     Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
-    assertEquals(expected, result)
+    assertEquals(expectedGenre, result)
   }
 
   @ParameterizedTest(name = "[YEAR] ({2}) : {0} == {1}")
   @DisplayName("Should return year : {0}")
   @MethodSource("testYearProvider")
-  fun shouldReturnYear(expected: String?, result: String?, filename: String, fileType: String)
+  fun shouldReturnYear(expectedYear: String?, result: String?, filename: String, fileType: String)
   {
     Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
-    assertEquals(expected, result)
+    assertEquals(expectedYear, result)
   }
 
 
