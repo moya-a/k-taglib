@@ -1,7 +1,7 @@
 package fr.amoya.ktaglib.platformdependent.file
 
-import java.io.File
-import java.nio.file.Files
+import java.io.InputStream
+import java.nio.file.Paths
 
 
 /*
@@ -14,19 +14,25 @@ import java.nio.file.Files
 
 class JvmFileReader : FileReader
 {
-  private var file: File? = null
+  private var input: InputStream? = null
 
   override fun load(filename: String)
   {
-    file = File(filename)
+    val file = Paths.get(filename).toFile()
+    if (file.exists() && file.isFile && file.canRead())
+      input = file.inputStream().buffered()
+    else
+      throw IllegalArgumentException("There were a problem with your file, it either does not exist or is not readable")
   }
 
   override fun readBytes(): ByteArray =
-    file?.run {
-      if (exists() && isFile && Files.isReadable(toPath()))
-        readBytes()
-      else
-        throw IllegalArgumentException("Could not read file")
+    input?.run {
+      readBytes()
     } ?: throw IllegalStateException("File is not loaded")
+
+  override fun close()
+  {
+    input?.close()
+  }
 
 }

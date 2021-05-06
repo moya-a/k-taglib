@@ -13,4 +13,5 @@ interface FileReader
 {
   fun load(filename: String)
   fun readBytes(): ByteArray
+  fun close()
 }

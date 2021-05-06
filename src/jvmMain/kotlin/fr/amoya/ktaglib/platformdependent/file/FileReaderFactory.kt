@@ -1,6 +1,7 @@
 package fr.amoya.ktaglib.platformdependent.file
 
 import fr.amoya.ktaglib.platformdependent.file.FileReader
+import kotlin.io.path.ExperimentalPathApi
 
 
 /*

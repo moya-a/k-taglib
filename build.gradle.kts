@@ -17,7 +17,6 @@ dependencies {
   testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
   testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
   testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.0")
-  testImplementation("com.github.doyaaaaaken:kotlin-csv-jvm:0.15.2")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }
 

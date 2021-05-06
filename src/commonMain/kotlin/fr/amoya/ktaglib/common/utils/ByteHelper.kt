@@ -30,6 +30,7 @@ object ByteHelper
     require(numberOfBytes in 1..8) { "The Long type is able to contain only 1 to 8 bytes" }
     val uData = rawData.toUByteArray()
     return uData
+      .asSequence()
       .drop(offset)
       .take(numberOfBytes)
       .fold(0x00uL) { aggregate, nextByte -> aggregate shl (8) or nextByte.toULong() }
@@ -39,6 +40,7 @@ object ByteHelper
   {
     require(numberOfBytes in 1..8) { "The Long type is able to contain only 1 to 8 bytes" }
     return rawData
+      .asSequence()
       .drop(offset)
       .take(numberOfBytes)
       .fold(0L) { aggregate, nextByte -> aggregate shl (8) or nextByte.toLong() }
@@ -48,6 +50,7 @@ object ByteHelper
   {
     require(numberOfBytes > 0) { "You must read at least one Byte" }
     return rawData
+      .asSequence()
       .drop(offset)
       .take(numberOfBytes)
       .fold(StringBuilder()) { aggregate, nextByte -> aggregate.append(nextByte.toChar()) }

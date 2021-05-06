@@ -29,10 +29,54 @@ interface Tag
   companion object
   {
     @ExperimentalUnsignedTypes
-    fun getTag(absoluteFileName: String): Tag =
-      FileReaderFactory.loadFileReader(absoluteFileName).readBytes().run {
-        TagParser.getParser(Utils.getTagSpec(this)).parse(this)
+    fun getTag(absoluteFileName: String): Tag
+    {
+      val fileReader = FileReaderFactory.loadFileReader(absoluteFileName)
+      try
+      {
+        val tag = fileReader.readBytes().run {
+          TagParser.getParser(Utils.getTagSpec(this)).parse(this)
+        }
+        fileReader.close()
+        return tag
       }
+      catch (e: Exception)
+      {
+        fileReader.close()
+        throw e
+      }
+      catch (e: Error)
+      {
+        fileReader.close()
+        throw e
+      }
+    }
+
+    @ExperimentalUnsignedTypes
+    fun getTagOrNull(absoluteFileName: String): Tag?
+    {
+      var tag: Tag? = null
+      val fileReader = FileReaderFactory.loadFileReader(absoluteFileName)
+      try
+      {
+        tag = fileReader.readBytes().run {
+          TagParser.getParser(Utils.getTagSpec(this)).parse(this)
+        }
+      }
+      catch (e: Exception)
+      {
+        println(e)
+      }
+      catch (e: Error)
+      {
+        println(e)
+      }
+      finally
+      {
+        fileReader.close()
+      }
+      return tag
+    }
   }
 }
 

@@ -22,4 +22,9 @@ class NativeFileReader : FileReader
   {
     TODO("Not yet implemented")
   }
+
+  override fun close()
+  {
+    TODO("Not yet implemented")
+  }
 }

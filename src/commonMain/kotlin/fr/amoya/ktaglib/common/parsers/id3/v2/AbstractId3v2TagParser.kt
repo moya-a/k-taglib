@@ -1,5 +1,6 @@
 package fr.amoya.ktaglib.common.parsers.id3.v2
 
+import fr.amoya.ktaglib.common.parsers.AbstractTagParser
 import fr.amoya.ktaglib.common.parsers.TagParser
 import fr.amoya.ktaglib.common.tags.Tag
 import fr.amoya.ktaglib.common.tags.id3v2.Id3ExtendedHeader
@@ -20,7 +21,7 @@ import kotlin.experimental.and
 */
 
 @ExperimentalUnsignedTypes
-abstract class AbstractId3v2TagParser : TagParser
+abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
 {
 
   companion object Constants

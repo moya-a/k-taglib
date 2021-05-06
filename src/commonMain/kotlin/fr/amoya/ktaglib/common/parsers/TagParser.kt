@@ -17,6 +17,7 @@ import fr.amoya.ktaglib.common.tags.Tag
 interface TagParser
 {
   fun parse(rawData: ByteArray): Tag
+  fun tryParse(rawData: ByteArray): Tag?
 
   @ExperimentalUnsignedTypes
   companion object

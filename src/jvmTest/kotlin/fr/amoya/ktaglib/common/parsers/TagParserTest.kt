@@ -1,9 +1,6 @@
 package fr.amoya.ktaglib.common.parsers
 
-import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import fr.amoya.ktaglib.common.tags.Tag
-import fr.amoya.ktaglib.common.tags.id3v2.Id3v2Tag
-import fr.amoya.ktaglib.common.tags.id3v2.Id3v2Tag.Companion.printTag
 import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -49,39 +46,40 @@ internal class TagParserTest
     @JvmStatic
     val tagsAndResults: MutableList<Arguments> = mutableListOf()
 
+    @BeforeAll
     @JvmStatic
     internal fun setUp()
     {
       val csvPath = Path("src", "commonTest", "resources", "expected_results.csv")
-      csvReader().open(csvPath.absolutePathString())
-      {
-        readAllWithHeaderAsSequence().forEach { row ->
-          row["Filename"]?.let {
+      println(csvPath.absolutePathString())
+      csvPath.readLines().forEachIndexed { i, row ->
+        if (i > 0)
+        {
+          try
+          {
+            val csvEntries = row.split(",")
             val result = ExpectedResult(
-              filename = it,
-              fileType = row["Type"],
-              no = row["#"]?.toInt(),
-              bitrate = row["Bitrate"]?.toInt(),
-              title = row["Title"],
-              album = row["Album"],
-              artist = row["Artist"],
-              genre = row["Genres"],
-              year = row["Year"]?.toInt(),
-              duration = row["Duration"]?.toInt()
+              filename = csvEntries[0],
+              fileType = csvEntries[1],
+              no = csvEntries[2].toIntOrNull(),
+              bitrate = csvEntries[3].toIntOrNull(),
+              title = csvEntries[4],
+              album = csvEntries[5],
+              artist = csvEntries[6],
+              genre = csvEntries[7],
+              year = csvEntries[8].toIntOrNull(),
+              duration = csvEntries[9].toIntOrNull()
             )
-            try
-            {
-              val fPath = Path("src", "commonTest", "resources", "data", it)
-              tagsAndResults.add(Arguments.of(result, Tag.getTag(fPath.absolutePathString())))
-            }
-            catch (_: Exception)
-            {
-              tagsAndResults.add(Arguments.of(result, null))
-            }
+            val fPath = Path("src", "commonTest", "resources", "data", result.filename)
+            tagsAndResults.add(Arguments.of(result, Tag.getTagOrNull(fPath.absolutePathString())))
+          }
+          catch (e: Exception)
+          {
+            println(e)
           }
         }
       }
-
+      println("added ${tagsAndResults.size} entries")
     }
 
     @JvmStatic
@@ -135,7 +133,7 @@ internal class TagParserTest
     Assumptions.assumeTrue(fileType.contains("ID3") && fPath.exists() && fPath.isRegularFile() && fPath.isReadable())
     val tag = Tag.getTag(fPath.absolutePathString())
 
-    if (tag is Id3v2Tag) println(printTag(tag)) else println(tag)
+    // if (tag is Id3v2Tag) println(printTag(tag)) else println(tag)
 
     assertAll("Should find the same values",
               { assertEquals(fileType, tag.tagVersion.specification) },
