@@ -1,6 +1,7 @@
 package fr.amoya.ktaglib.common.utils
 
 
+import fr.amoya.ktaglib.platformdependent.file.FileReaderFactory
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.DisplayName
@@ -30,7 +31,9 @@ internal class UtilsTest
     val fPath = Path("src", "commonTest", "resources", "data", filename)
 
     Assumptions.assumeTrue(fPath.exists() && fPath.isRegularFile() && fPath.isReadable())
-    assertEquals(expectedType, "${Utils.getTagSpec(fPath.toFile().readBytes())}")
+    val reader = FileReaderFactory.loadFileReader(fPath.absolutePathString())
+    assertEquals(expectedType, "${Utils.getTagSpec(reader.readBytes())}")
+    reader.close()
   }
 
   @AfterEach

@@ -4,7 +4,7 @@ import fr.amoya.ktaglib.common.tags.Tag
 import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
-import org.junit.jupiter.params.provider.CsvFileSource
+import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 import kotlin.io.path.*
 import kotlin.test.assertEquals
@@ -19,21 +19,15 @@ import kotlin.test.assertEquals
 
 data class ExpectedResult(
   val filename: String,
-  val fileType: String?,
-  val no: Int?,
-  val bitrate: Int?,
+  val fileType: String,
+  val no: String?,
+  val bitrate: String?,
   val title: String?,
   val album: String?,
   val artist: String?,
   val genre: String?,
-  val year: Int?,
-  val duration: Int?
-)
-
-data class Argument(
-  val filename: String,
-  val expectedResult: ExpectedResult,
-  val tag: Tag?
+  val year: String?,
+  val duration: String?
 )
 
 @ExperimentalUnsignedTypes
@@ -41,10 +35,10 @@ data class Argument(
 internal class TagParserTest
 {
 
-  companion object CSVLoader
+  companion object
   {
     @JvmStatic
-    val tagsAndResults: MutableList<Arguments> = mutableListOf()
+    val tagsAndResults: MutableList<Pair<ExpectedResult, Tag?>> = mutableListOf()
 
     @BeforeAll
     @JvmStatic
@@ -61,17 +55,17 @@ internal class TagParserTest
             val result = ExpectedResult(
               filename = csvEntries[0],
               fileType = csvEntries[1],
-              no = csvEntries[2].toIntOrNull(),
-              bitrate = csvEntries[3].toIntOrNull(),
+              no = csvEntries[2],
+              bitrate = csvEntries[3],
               title = csvEntries[4],
               album = csvEntries[5],
               artist = csvEntries[6],
               genre = csvEntries[7],
-              year = csvEntries[8].toIntOrNull(),
-              duration = csvEntries[9].toIntOrNull()
+              year = csvEntries[8],
+              duration = csvEntries[9]
             )
-            val fPath = Path("src", "commonTest", "resources", "data", result.filename)
-            tagsAndResults.add(Arguments.of(result, Tag.getTagOrNull(fPath.absolutePathString())))
+            val fPath = Path("src", "commonTest", "resources", "data", csvEntries[0])
+            tagsAndResults.add(Pair(result, Tag.getTagOrNull(fPath.absolutePathString())))
           }
           catch (e: Exception)
           {
@@ -82,8 +76,76 @@ internal class TagParserTest
       println("added ${tagsAndResults.size} entries")
     }
 
+    private fun Any?.toStringOrEmpty(): String = this?.run { this.toString() } ?: ""
+
     @JvmStatic
-    fun testTagProvider(): Stream<Arguments> = tagsAndResults.stream()
+    fun testTagProvider(): Stream<Arguments> =
+      tagsAndResults.map { Arguments.of(it.first.filename, it.first, it.second) }.stream()
+
+    @JvmStatic
+    fun testSpecProvider(): Stream<Arguments> =
+      tagsAndResults.map {
+        Arguments.of(
+          it.first.fileType,
+          it.second?.tagVersion?.specification ?: "NONE",
+          it.first.filename
+        )
+      }.stream()
+
+    @JvmStatic
+    fun testTitleProvider(): Stream<Arguments> =
+      tagsAndResults.map {
+        Arguments.of(
+          it.first.title.toStringOrEmpty(),
+          it.second?.title.toStringOrEmpty(),
+          it.first.filename,
+          it.first.fileType
+        )
+      }.stream()
+
+    @JvmStatic
+    fun testArtistProvider(): Stream<Arguments> =
+      tagsAndResults.map {
+        Arguments.of(
+          it.first.artist.toStringOrEmpty(),
+          it.second?.artist.toStringOrEmpty(),
+          it.first.filename,
+          it.first.fileType
+        )
+      }.stream()
+
+    @JvmStatic
+    fun testAlbumProvider(): Stream<Arguments> =
+      tagsAndResults.map {
+        Arguments.of(
+          it.first.album.toStringOrEmpty(),
+          it.second?.album.toStringOrEmpty(),
+          it.first.filename,
+          it.first.fileType
+        )
+      }.stream()
+
+    @JvmStatic
+    fun testGenreProvider(): Stream<Arguments> =
+      tagsAndResults.map {
+        Arguments.of(
+          it.first.genre.toStringOrEmpty(),
+          it.second?.genre.toStringOrEmpty(),
+          it.first.filename,
+          it.first.fileType
+        )
+      }.stream()
+
+    @JvmStatic
+    fun testYearProvider(): Stream<Arguments> =
+      tagsAndResults.map {
+        Arguments.of(
+          it.first.year.toStringOrEmpty(),
+          it.second?.year.toStringOrEmpty(),
+          it.first.filename,
+          it.first.fileType
+        )
+      }.stream()
   }
 
 
@@ -91,9 +153,9 @@ internal class TagParserTest
   ** Error Checking
   */
   @ParameterizedTest(name = "Should throw an error : {0}")
-  @DisplayName("Should throw an error")
-  @CsvFileSource(resources = ["/expected_results.csv"], numLinesToSkip = 1)
-  fun shouldThrowAnError(filename: String, fileType: String)
+  @DisplayName("Should throw an error : {0}")
+  @MethodSource("testTagProvider")
+  fun shouldThrowAnError(filename: String, result: ExpectedResult)
   {
     val fPath = Path("src", "commonTest", "resources", "data", filename)
     Assumptions.assumingThat(!(fPath.exists() && fPath.isRegularFile() && fPath.isReadable()))
@@ -101,48 +163,88 @@ internal class TagParserTest
       assertThrows<IllegalArgumentException> { Tag.getTag(fPath.absolutePathString()) }
     }
     Assumptions.assumingThat(
-      !fileType.contains("ID3") &&
-      (fileType.contains("FLAC") || fileType.contains("RIFF") || fileType.contains("OGG") || fileType.contains("APE"))
+      fPath.exists() && fPath.isRegularFile() && fPath.isReadable() &&
+      !result.fileType.contains("ID3") &&
+      (result.fileType.contains("FLAC") || result.fileType.contains("RIFF") ||
+       result.fileType.contains("OGG") || result.fileType.contains("APE"))
     )
     {
       assertThrows<NotImplementedError> { Tag.getTag(fPath.absolutePathString()) }
     }
   }
 
+  @ParameterizedTest(name = "Should not throw an error : {0}")
+  @DisplayName("Should not throw an error : {0}")
+  @MethodSource("testTagProvider")
+  fun shouldNotThrowAnError(filename: String, result: ExpectedResult)
+  {
+    val fPath = Path("src", "commonTest", "resources", "data", filename)
+    Assumptions.assumingThat(
+      fPath.exists() && fPath.isRegularFile() && fPath.isReadable() && result.fileType.contains("ID3")
+    )
+    {
+      assertDoesNotThrow { Tag.getTag(fPath.absolutePathString()) }
+    }
+  }
+
+
   /*
   ** Actual Parsing Check
   */
-  @ParameterizedTest(name = "Should Parse : {1} - {0}")
-  @DisplayName("Should Parse Tag")
-  @CsvFileSource(resources = ["/expected_results.csv"], numLinesToSkip = 1)
-  fun shouldParseTag(
-    filename: String,
-    fileType: String,
-    no: Int?,
-    bitrate: Int?,
-    title: String?,
-    album: String?,
-    artist: String?,
-    genre: String?,
-    year: Int?,
-    duration: Int?
-  )
+  @ParameterizedTest(name = "[SPEC] ({2}) : {0} == {1}")
+  @DisplayName("Should return Tag Specification")
+  @MethodSource("testSpecProvider")
+  fun shouldReturnTagSpecification(expected: String?, result: String?, filename: String)
   {
-    println("filename = [${filename}], fileType = [${fileType}], no = [${no}], bitrate = [${bitrate}], title = [${title}], album = [${album}], artist = [${artist}], genre = [${genre}], year = [${year}], duration = [${duration}]")
-    val fPath = Path("src", "commonTest", "resources", "data", filename)
-    Assumptions.assumeTrue(fileType.contains("ID3") && fPath.exists() && fPath.isRegularFile() && fPath.isReadable())
-    val tag = Tag.getTag(fPath.absolutePathString())
-
-    // if (tag is Id3v2Tag) println(printTag(tag)) else println(tag)
-
-    assertAll("Should find the same values",
-              { assertEquals(fileType, tag.tagVersion.specification) },
-              { assertEquals(album, tag.album) },
-              { assertEquals(artist, tag.artist) },
-              { assertEquals(genre, tag.genre) },
-              { assertEquals(year?.toString(), tag.year) }
-    )
+    Assumptions.assumeTrue(expected?.contains("ID3") ?: false && filename.isNotEmpty())
+    assertEquals(expected, result)
   }
+
+  @ParameterizedTest(name = "[TITLE] ({2}) : {0} == {1}")
+  @DisplayName("Should return title : {0}")
+  @MethodSource("testTitleProvider")
+  fun shouldReturnTitle(expected: String?, result: String?, filename: String, fileType: String)
+  {
+    Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
+    assertEquals(expected, result)
+  }
+
+  @ParameterizedTest(name = "[ARTIST] ({2}) : {0} == {1}")
+  @DisplayName("Should return artist : {0}")
+  @MethodSource("testArtistProvider")
+  fun shouldReturnArtist(expected: String?, result: String?, filename: String, fileType: String)
+  {
+    Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
+    assertEquals(expected, result)
+  }
+
+  @ParameterizedTest(name = "[ALBUM] ({2}) : {0} == {1}")
+  @DisplayName("Should return album : {0}")
+  @MethodSource("testAlbumProvider")
+  fun shouldReturnAlbum(expected: String?, result: String?, filename: String, fileType: String)
+  {
+    Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
+    assertEquals(expected, result)
+  }
+
+  @ParameterizedTest(name = "[GENRE] ({2}) : {0} == {1}")
+  @DisplayName("Should return genre : {0}")
+  @MethodSource("testGenreProvider")
+  fun shouldReturnGenre(expected: String?, result: String?, filename: String, fileType: String)
+  {
+    Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
+    assertEquals(expected, result)
+  }
+
+  @ParameterizedTest(name = "[YEAR] ({2}) : {0} == {1}")
+  @DisplayName("Should return year : {0}")
+  @MethodSource("testYearProvider")
+  fun shouldReturnYear(expected: String?, result: String?, filename: String, fileType: String)
+  {
+    Assumptions.assumeTrue(fileType.contains("ID3") && filename.isNotEmpty())
+    assertEquals(expected, result)
+  }
+
 
   @AfterEach
   fun cleanUp()
