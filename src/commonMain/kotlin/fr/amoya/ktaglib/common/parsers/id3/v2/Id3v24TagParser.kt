@@ -1,12 +1,11 @@
 package fr.amoya.ktaglib.common.parsers.id3.v2
 
 import fr.amoya.ktaglib.common.parsers.TagParser
-import fr.amoya.ktaglib.common.tags.id3v2.Id3ExtendedHeader
-import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3Frame
-import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameHeader
-import fr.amoya.ktaglib.common.tags.id3v2.frame.v23.Id3v23KnownFrames
-import fr.amoya.ktaglib.common.tags.id3v2.frame.v24.Id3v24FrameHeader
-import fr.amoya.ktaglib.common.tags.id3v2.frame.v24.Id3v24KnownFrames
+import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3Frame
+import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3FrameHeader
+import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.v23.Id3v23KnownFrames
+import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.v24.Id3v24FrameHeader
+import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.v24.Id3v24KnownFrames
 import fr.amoya.ktaglib.common.utils.ByteHelper
 
 
@@ -33,7 +32,7 @@ class Id3v24TagParser : TagParser, AbstractId3v2TagParser()
     const val frameDataLengthIndicatorFlag: Long = 0x01
   }
 
-  override fun parseExtendedHeader(rawData: ByteArray): Id3ExtendedHeader?
+  override fun parseExtendedHeader(rawData: ByteArray): fr.amoya.ktaglib.common.tags.id3.id3v2.Id3ExtendedHeader?
   {
     TODO("Not yet implemented")
   }

@@ -1,6 +1,6 @@
 package fr.amoya.ktaglib.platformdependent.file
 
-import java.io.InputStream
+import java.io.BufferedInputStream
 import java.nio.file.Paths
 
 
@@ -14,7 +14,7 @@ import java.nio.file.Paths
 
 class JvmFileReader : FileReader
 {
-  private var input: InputStream? = null
+  private var input: BufferedInputStream? = null
 
   override fun load(filename: String)
   {

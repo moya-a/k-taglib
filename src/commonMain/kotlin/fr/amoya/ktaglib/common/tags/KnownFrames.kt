@@ -1,7 +1,5 @@
 package fr.amoya.ktaglib.common.tags
 
-import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameContent
-
 
 /*
 * fr.amoya.ktaglib.common.tags
@@ -14,5 +12,5 @@ import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameContent
 interface KnownFrames
 {
   val description: String
-  val parser: (ByteArray) -> Id3FrameContent
+  val parser: (ByteArray) -> FrameContent
 }

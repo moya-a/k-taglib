@@ -196,7 +196,7 @@ internal class TagParserTest
   @MethodSource("testSpecProvider")
   fun shouldReturnTagSpecification(expected: String?, result: String?, filename: String)
   {
-    Assumptions.assumeTrue(expected?.contains("ID3") ?: false && filename.isNotEmpty())
+    Assumptions.assumeTrue(expected?.contains(Regex("(ID3|FLAC|RIFF)")) ?: false && filename.isNotEmpty())
     assertEquals(expected, result)
   }
 

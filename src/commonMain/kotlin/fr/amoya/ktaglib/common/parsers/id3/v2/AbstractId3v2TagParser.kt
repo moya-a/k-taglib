@@ -3,12 +3,10 @@ package fr.amoya.ktaglib.common.parsers.id3.v2
 import fr.amoya.ktaglib.common.parsers.AbstractTagParser
 import fr.amoya.ktaglib.common.parsers.TagParser
 import fr.amoya.ktaglib.common.tags.Tag
-import fr.amoya.ktaglib.common.tags.id3v2.Id3ExtendedHeader
-import fr.amoya.ktaglib.common.tags.id3v2.Id3Header
-import fr.amoya.ktaglib.common.tags.id3v2.Id3v2Tag
-import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3Frame
-import fr.amoya.ktaglib.common.tags.id3v2.frame.Id3FrameHeader
-import fr.amoya.ktaglib.common.tags.id3v2.frame.v23.Id3v23KnownFrames
+import fr.amoya.ktaglib.common.tags.id3.id3v2.Id3v2Tag
+import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3Frame
+import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3FrameHeader
+import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.v23.Id3v23KnownFrames
 import fr.amoya.ktaglib.common.utils.ByteHelper
 import fr.amoya.ktaglib.common.utils.toByteArray
 import kotlin.experimental.and
@@ -40,7 +38,7 @@ abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
 
   }
 
-  protected abstract fun parseExtendedHeader(rawData: ByteArray): Id3ExtendedHeader?
+  protected abstract fun parseExtendedHeader(rawData: ByteArray): fr.amoya.ktaglib.common.tags.id3.id3v2.Id3ExtendedHeader?
   protected abstract fun parseFrameHeader(rawFrameHeader: ByteArray): Id3FrameHeader
   protected abstract fun parseFrame(header: Id3FrameHeader, rawFrameContent: ByteArray): Id3Frame
 
@@ -48,7 +46,7 @@ abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
   override fun parse(rawData: Sequence<Byte>): Tag
   {
     val tagHeader = parseTagHeader(rawData.toByteArray(headerSize))
-    var extendedHeader: Id3ExtendedHeader? = null
+    var extendedHeader: fr.amoya.ktaglib.common.tags.id3.id3v2.Id3ExtendedHeader? = null
     if (tagHeader.extendedHeader)
     {
       extendedHeader = parseExtendedHeader(rawData.drop(headerSize).toByteArray(extendedHeaderSize))
@@ -91,10 +89,10 @@ abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
   }
 
 
-  private fun parseTagHeader(rawHeader: ByteArray): Id3Header
+  private fun parseTagHeader(rawHeader: ByteArray): fr.amoya.ktaglib.common.tags.id3.id3v2.Id3Header
   {
     require(rawHeader.size >= headerSize) { "Id3 header size must be $headerSize bytes" }
-    return Id3Header()
+    return fr.amoya.ktaglib.common.tags.id3.id3v2.Id3Header()
       .apply {
         fileIdentifier = rawHeader.decodeToString(0, 3)
         versionMajor = rawHeader[3].toInt()
