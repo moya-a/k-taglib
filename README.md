@@ -1,20 +1,31 @@
 <h1 align="center">K-TagLib</h1>
 
 <h2 align="center">
-  <div>An easy to use pure Kotlin library that to read and manage multimedia metadata</div>
-  <div>Inspired by the famous c/c++ library <a href="https://github.com/taglib/taglib">taglib</a></div>
+An easy to use, pure Kotlin library, to read and manage multimedia metadata
 </h2>
+<div align="center">
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=alert_status)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=coverage)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
+
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=ncloc)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=bugs)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=code_smells)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=coverage)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
+
 </div>
 
+## Overview
+K-TagLib is a library to read, write and manage multimedia metadata (or tags).
+
+I want it to be easy to use and portable via Kotlin MultiPlatform.
+
+It's inspired by the famous c/c++ library <a href="https://github.com/taglib/taglib">taglib</a>
+
+## Disclaimer
+As the project development is still in a very early stage, the information you'll find below may be subject to heavy changes.
 ## Installation
-The code is not stable enough to be pushed to a repository yet.
+The codebase is not stable enough to be pushed onto a repository yet.
 ### Gradle
 * TODO
 ### Maven
