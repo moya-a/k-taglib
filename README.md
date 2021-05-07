@@ -19,15 +19,15 @@ An easy to use, pure Kotlin library, to read and manage multimedia metadata
 
 </div>
 
+## Disclaimer
+As the project development is still in a very early stage, the information you'll find below may be subject to heavy changes.
 ## Overview
 K-TagLib is a library to read, write and manage multimedia metadata (or tags).
 
 I want it to be easy to use and portable via Kotlin MultiPlatform.
 
-It's inspired by the famous c/c++ library <a href="https://github.com/taglib/taglib">taglib</a>
+It's inspired by the c/c++ library [taglib](https://github.com/taglib/taglib)
 
-## Disclaimer
-As the project development is still in a very early stage, the information you'll find below may be subject to heavy changes.
 ## Installation
 The codebase is not stable enough to be pushed onto a repository yet.
 ### Gradle
@@ -39,7 +39,7 @@ The codebase is not stable enough to be pushed onto a repository yet.
 
 (TODO : write the detailed walkthrough)
 
-## Utilisation
+## Usage
 K-TagLib wants to be as easy as possible to use.
 
 ### Read Tag
