@@ -5,6 +5,10 @@ An easy to use, pure Kotlin library, to read and manage multimedia metadata
 </h2>
 <div align="center">
 
+![GitHub last commit](https://img.shields.io/github/last-commit/moya-a/k-taglib)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/moya-a/k-taglib)
+[![GitHub issues](https://img.shields.io/github/issues/moya-a/k-taglib)](https://github.com/moya-a/k-taglib/issues)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=alert_status)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=coverage)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
 
@@ -119,4 +123,4 @@ K-TagLib wants to be as easy as possible to use.
 * [Arnaud Moya](https://github.com/moya-a)
 
 ## License
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub license](https://img.shields.io/github/license/moya-a/k-taglib?style=plastic)](https://github.com/moya-a/k-taglib/blob/main/LICENSE)
