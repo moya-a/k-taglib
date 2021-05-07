@@ -116,8 +116,8 @@ K-TagLib wants to be as easy as possible to use.
 | `0.5.0` | implement basic writing for all tags                                |
 | `1.0.0` | implement advanced writing for all tags                             |
 | `1.1.0` | support native platforms                                            |
-| `1.1.0` | support mobile platforms                                            |
-| `1.2.0` | support browser/js plarform                                         |
+| `1.2.0` | support mobile platforms                                            |
+| `1.3.0` | support browser/js plarform                                         |
 
 ## Autor
 * [Arnaud Moya](https://github.com/moya-a)
