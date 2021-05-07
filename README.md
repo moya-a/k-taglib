@@ -47,12 +47,13 @@ K-TagLib wants to be as easy as possible to use.
 ```kotlin
   val tag: Tag? = Tag.getTagOrNull(filename)
 ```
-* using Tag, for this example, let's assume the file is an mp3 file tagged with the id3v2.3 standard :
+* using the tag, for this example, let's assume the file is an mp3 file tagged with the id3v2.3 standard :
 
 (see list of supported standards below)
 ```kotlin
   val tag: Tag = Tag.getTag("/path/to/file/id3v23.mp3")
 
+  // for now, only those fields are in the interface but it might change in the future
   val title:        String? = tag.title
   val artist:       String? = tag.artist
   val album:        String? = tag.album
@@ -60,9 +61,12 @@ K-TagLib wants to be as easy as possible to use.
   val comment:      String? = tag.comment
   val genre:        String? = tag.genre
   
-  // let's verify the standard used id id3v2.3
+  // let's verify the standard used is id3v2.3
   if (tag.tagVersion == TagSpec.ID3V23)
+  {
     val bpm :       String? = tag[Id3v23KnownFrames.TBPM]
+    val publisher : String? = tag.get(Id3v23KnownFrames.TPUB)
+  }
 ```
 
 ### Write Tag
@@ -100,6 +104,7 @@ K-TagLib wants to be as easy as possible to use.
 
 | Version | Task                                                                |
 | :-----: | :-----------------------------------------------------------------: |
+| `0.0.1` | we're here                                                          |
 | `0.1.0` | finish implementation of basic reading for FLaC, RIFF, OGG and APE  |
 | `0.2.0` | implement advanced reading for all tags                             |
 | `0.3.0` | optimize performance by lazy reading the file                       |
