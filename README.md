@@ -81,9 +81,9 @@ K-TagLib wants to be as easy as possible to use.
 | ID3 v1      | OK            | TODO              | TODO          | TODO              |
 | ID3 v2.2    | OK            | TODO              | TODO          | TODO              |
 | ID3 v2.3    | OK            | TODO              | TODO          | TODO              |
-| ID3 v2.4    | TODO          | TODO              | TODO          | TODO              |
-| FLaC        | TODO          | TODO              | TODO          | TODO              |
-| RIFF        | TODO          | TODO              | TODO          | TODO              |
+| ID3 v2.4    | OK            | TODO              | TODO          | TODO              |
+| FLaC        | ONGOING       | TODO              | TODO          | TODO              |
+| RIFF        | ONGOING       | TODO              | TODO          | TODO              |
 | OGG         | TODO          | TODO              | TODO          | TODO              |
 | APE         | TODO          | TODO              | TODO          | TODO              |
 
