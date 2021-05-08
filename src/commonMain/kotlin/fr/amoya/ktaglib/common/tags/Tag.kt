@@ -3,7 +3,6 @@ package fr.amoya.ktaglib.common.tags
 import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.parsers.TagParser
 import fr.amoya.ktaglib.common.utils.Utils
-import fr.amoya.ktaglib.common.utils.toByteArray
 import fr.amoya.ktaglib.platformdependent.file.FileReaderFactory
 
 
@@ -35,7 +34,7 @@ interface Tag
       val fileReader = FileReaderFactory.loadFileReader(absoluteFileName)
       try
       {
-        val tag = fileReader.readBytes().run {
+        val tag = fileReader.readEntireFile().run {
           TagParser.getParser(Utils.getTagSpec(this)).parse(this)
         }
         fileReader.close()
@@ -60,7 +59,7 @@ interface Tag
       val fileReader = FileReaderFactory.loadFileReader(absoluteFileName)
       try
       {
-        tag = fileReader.readBytes().run {
+        tag = fileReader.readEntireFile().run {
           TagParser.getParser(Utils.getTagSpec(this)).parse(this)
         }
       }

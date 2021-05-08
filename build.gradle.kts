@@ -68,7 +68,7 @@ tasks {
     targets.all {
       compilations.all {
         kotlinOptions {
-          allWarningsAsErrors = true
+          // allWarningsAsErrors = true
         }
       }
     }

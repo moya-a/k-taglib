@@ -32,7 +32,7 @@ internal class UtilsTest
 
     Assumptions.assumeTrue(fPath.exists() && fPath.isRegularFile() && fPath.isReadable())
     val reader = FileReaderFactory.loadFileReader(fPath.absolutePathString())
-    assertEquals(expectedType, "${Utils.getTagSpec(reader.readBytes())}")
+    assertEquals(expectedType, "${Utils.getTagSpec(reader.readEntireFile())}")
     reader.close()
   }
 

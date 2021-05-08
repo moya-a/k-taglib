@@ -11,6 +11,11 @@ package fr.amoya.ktaglib.platformdependent.file
 
 class NativeFileReader : FileReader
 {
+  override val size: Long
+    get() = -1L
+
+  override val cursor: Long
+    get() = 0L
 
 
   override fun load(filename: String)
@@ -18,7 +23,12 @@ class NativeFileReader : FileReader
     TODO("Not yet implemented")
   }
 
-  override fun readBytes(): Sequence<Byte>
+  override fun readNBytes(size: String): ByteArray
+  {
+    TODO("Not yet implemented")
+  }
+
+  override fun readEntireFile(): Sequence<Byte>
   {
     TODO("Not yet implemented")
   }
