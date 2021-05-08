@@ -5,6 +5,10 @@ An easy to use, pure Kotlin library, to read and manage multimedia metadata
 </h2>
 <div align="center">
 
+![GitHub last commit](https://img.shields.io/github/last-commit/moya-a/k-taglib)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/moya-a/k-taglib)
+[![GitHub issues](https://img.shields.io/github/issues/moya-a/k-taglib)](https://github.com/moya-a/k-taglib/issues)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=alert_status)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=moya-a_k-taglib&metric=coverage)](https://sonarcloud.io/dashboard?id=moya-a_k-taglib)
 
@@ -15,15 +19,15 @@ An easy to use, pure Kotlin library, to read and manage multimedia metadata
 
 </div>
 
+## Disclaimer
+As the project development is still in a very early stage, the information you'll find below may be subject to heavy changes.
 ## Overview
 K-TagLib is a library to read, write and manage multimedia metadata (or tags).
 
 I want it to be easy to use and portable via Kotlin MultiPlatform.
 
-It's inspired by the famous c/c++ library <a href="https://github.com/taglib/taglib">taglib</a>
+It's inspired by the c/c++ library [taglib](https://github.com/taglib/taglib)
 
-## Disclaimer
-As the project development is still in a very early stage, the information you'll find below may be subject to heavy changes.
 ## Installation
 The codebase is not stable enough to be pushed onto a repository yet.
 ### Gradle
@@ -35,7 +39,7 @@ The codebase is not stable enough to be pushed onto a repository yet.
 
 (TODO : write the detailed walkthrough)
 
-## Utilisation
+## Usage
 K-TagLib wants to be as easy as possible to use.
 
 ### Read Tag
@@ -81,9 +85,9 @@ K-TagLib wants to be as easy as possible to use.
 | ID3 v1      | OK            | TODO              | TODO          | TODO              |
 | ID3 v2.2    | OK            | TODO              | TODO          | TODO              |
 | ID3 v2.3    | OK            | TODO              | TODO          | TODO              |
-| ID3 v2.4    | TODO          | TODO              | TODO          | TODO              |
-| FLaC        | TODO          | TODO              | TODO          | TODO              |
-| RIFF        | TODO          | TODO              | TODO          | TODO              |
+| ID3 v2.4    | OK            | TODO              | TODO          | TODO              |
+| FLaC        | ONGOING       | TODO              | TODO          | TODO              |
+| RIFF        | ONGOING       | TODO              | TODO          | TODO              |
 | OGG         | TODO          | TODO              | TODO          | TODO              |
 | APE         | TODO          | TODO              | TODO          | TODO              |
 
@@ -112,11 +116,11 @@ K-TagLib wants to be as easy as possible to use.
 | `0.5.0` | implement basic writing for all tags                                |
 | `1.0.0` | implement advanced writing for all tags                             |
 | `1.1.0` | support native platforms                                            |
-| `1.1.0` | support mobile platforms                                            |
-| `1.2.0` | support browser/js plarform                                         |
+| `1.2.0` | support mobile platforms                                            |
+| `1.3.0` | support browser/js plarform                                         |
 
 ## Autor
 * [Arnaud Moya](https://github.com/moya-a)
 
 ## License
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub license](https://img.shields.io/github/license/moya-a/k-taglib?style=plastic)](https://github.com/moya-a/k-taglib/blob/main/LICENSE)
