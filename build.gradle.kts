@@ -1,5 +1,5 @@
 plugins {
-  kotlin("multiplatform") version "1.4.32"
+  kotlin("multiplatform") version "1.5.0"
   java
   jacoco
   id("org.sonarqube") version "3.2.0"
@@ -106,14 +106,12 @@ tasks {
           implementation(kotlin("test"))
           implementation(kotlin("test-common"))
           implementation(kotlin("test-annotations-common"))
-          implementation(kotlin("test-junit"))
         }
       }
       val jvmMain by getting
       val jvmTest by getting {
         dependencies {
           implementation(kotlin("test"))
-          implementation(kotlin("test-junit"))
         }
       }
       val nativeMain by getting

@@ -1,6 +1,7 @@
 package fr.amoya.ktaglib.common.parsers.id3.v2
 
 import fr.amoya.ktaglib.common.parsers.TagParser
+import fr.amoya.ktaglib.common.parsers.id3.v2.AbstractId3v2TagParser.Constants.headerSize
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3Frame
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3FrameHeader
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.v23.Id3v23FrameHeader
@@ -15,7 +16,7 @@ import fr.amoya.ktaglib.common.utils.ByteHelper
 * Created on 30/04/2021
 */
 @ExperimentalUnsignedTypes
-class Id3v23TagParser : TagParser, AbstractId3v2TagParser()
+class Id3v23TagParser : AbstractId3v2TagParser
 {
   companion object Utils
   {

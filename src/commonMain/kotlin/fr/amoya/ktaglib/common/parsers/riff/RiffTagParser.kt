@@ -1,6 +1,6 @@
 package fr.amoya.ktaglib.common.parsers.riff
 
-import fr.amoya.ktaglib.common.parsers.AbstractTagParser
+
 import fr.amoya.ktaglib.common.parsers.TagParser
 import fr.amoya.ktaglib.common.tags.Tag
 
@@ -13,7 +13,7 @@ import fr.amoya.ktaglib.common.tags.Tag
 */
 
 
-class RiffTagParser : AbstractTagParser(), TagParser
+class RiffTagParser : TagParser
 {
   override fun parse(rawData: Sequence<Byte>): Tag
   {

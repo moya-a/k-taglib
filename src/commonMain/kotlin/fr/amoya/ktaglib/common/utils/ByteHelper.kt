@@ -60,7 +60,7 @@ object ByteHelper
     return rawData
       .drop(offset)
       .take(numberOfBytes)
-      .fold(StringBuilder()) { aggregate, nextByte -> aggregate.append(nextByte.toChar()) }
+      .fold(StringBuilder()) { aggregate, nextByte -> aggregate.append(Char(nextByte.toInt())) }
       .toString()
   }
 

@@ -35,7 +35,7 @@ object Utils
     ByteHelper.aggregateBytes(rawData, 8, Long::class) == TagSpec.APE.magicNumber
 
   /**
-   * ID3v1 is a bit different as the tag is at the end of the file
+   * ID3v1 is a bit different as the tag is in the last 128b at the end of the file
    */
   private fun isId3v1(rawData: Sequence<Byte>): Boolean
   {

@@ -1,6 +1,6 @@
 package fr.amoya.ktaglib.common.parsers.flac
 
-import fr.amoya.ktaglib.common.parsers.AbstractTagParser
+
 import fr.amoya.ktaglib.common.parsers.TagParser
 import fr.amoya.ktaglib.common.tags.Tag
 
@@ -13,7 +13,7 @@ import fr.amoya.ktaglib.common.tags.Tag
 */
 
 
-class FlacTagParser : AbstractTagParser(), TagParser
+class FlacTagParser : TagParser
 {
   override fun parse(rawData: Sequence<Byte>): Tag
   {

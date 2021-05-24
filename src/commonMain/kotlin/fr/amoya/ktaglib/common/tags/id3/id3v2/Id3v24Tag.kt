@@ -19,7 +19,7 @@ class Id3v24Tag(
   override var header: Id3Header = Id3Header(),
   override var extendedHeader: Id3ExtendedHeader? = null,
   override var frames: Collection<Id3Frame> = mutableListOf()
-) : Id3v2Tag(), Tag
+) : Id3v2Tag
 {
   override val tagVersion: TagSpec = TagSpec.ID3V24
 

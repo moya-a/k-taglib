@@ -16,17 +16,17 @@ import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3v2KnownFrames
 */
 
 @ExperimentalUnsignedTypes
-abstract class Id3v2Tag : Tag
+interface Id3v2Tag : Tag
 {
 
-  protected open var header: Id3Header = Id3Header()
-  protected open var extendedHeader: Id3ExtendedHeader? = null
-  protected open var frames: Collection<Id3Frame> = mutableListOf()
+  var header: Id3Header
+  var extendedHeader: Id3ExtendedHeader?
+  var frames: Collection<Id3Frame>
 
-  protected fun getContentFromFrame(frameId: Id3v2KnownFrames): String? =
+  fun getContentFromFrame(frameId: Id3v2KnownFrames): String? =
     frames.find { it.header.id == frameId }?.content?.getContentAsString()
 
-  protected fun getGenres(rawGenres: String): String =
+  fun getGenres(rawGenres: String): String =
     if (rawGenres.startsWith("("))
     {
       val tmpStr = Regex("\\([0-9]+\\)").findAll(rawGenres)

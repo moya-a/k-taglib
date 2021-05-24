@@ -1,8 +1,8 @@
 package fr.amoya.ktaglib.common.parsers.id3.v2
 
-import fr.amoya.ktaglib.common.parsers.AbstractTagParser
 import fr.amoya.ktaglib.common.parsers.TagParser
 import fr.amoya.ktaglib.common.tags.Tag
+import fr.amoya.ktaglib.common.tags.id3.id3v2.Id3ExtendedHeader
 import fr.amoya.ktaglib.common.tags.id3.id3v2.Id3v2Tag
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3Frame
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3FrameHeader
@@ -20,7 +20,7 @@ import kotlin.experimental.and
 */
 
 @ExperimentalUnsignedTypes
-abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
+interface AbstractId3v2TagParser : TagParser
 {
 
   companion object Constants
@@ -38,15 +38,15 @@ abstract class AbstractId3v2TagParser : AbstractTagParser(), TagParser
 
   }
 
-  protected abstract fun parseExtendedHeader(rawData: ByteArray): fr.amoya.ktaglib.common.tags.id3.id3v2.Id3ExtendedHeader?
-  protected abstract fun parseFrameHeader(rawFrameHeader: ByteArray): Id3FrameHeader
-  protected abstract fun parseFrame(header: Id3FrameHeader, rawFrameContent: ByteArray): Id3Frame
+  fun parseExtendedHeader(rawData: ByteArray): Id3ExtendedHeader?
+  fun parseFrameHeader(rawFrameHeader: ByteArray): Id3FrameHeader
+  fun parseFrame(header: Id3FrameHeader, rawFrameContent: ByteArray): Id3Frame
 
 
   override fun parse(rawData: Sequence<Byte>): Tag
   {
     val tagHeader = parseTagHeader(rawData.toByteArray(headerSize))
-    var extendedHeader: fr.amoya.ktaglib.common.tags.id3.id3v2.Id3ExtendedHeader? = null
+    var extendedHeader: Id3ExtendedHeader? = null
     if (tagHeader.extendedHeader)
     {
       extendedHeader = parseExtendedHeader(rawData.drop(headerSize).toByteArray(extendedHeaderSize))
