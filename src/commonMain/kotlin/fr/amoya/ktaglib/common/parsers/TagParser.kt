@@ -1,5 +1,6 @@
 package fr.amoya.ktaglib.common.parsers
 
+import fr.amoya.ktaglib.common.Tag
 import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.parsers.flac.FlacTagParser
 import fr.amoya.ktaglib.common.parsers.id3.v1.Id3v1TagParser
@@ -7,7 +8,6 @@ import fr.amoya.ktaglib.common.parsers.id3.v2.Id3v22TagParser
 import fr.amoya.ktaglib.common.parsers.id3.v2.Id3v23TagParser
 import fr.amoya.ktaglib.common.parsers.id3.v2.Id3v24TagParser
 import fr.amoya.ktaglib.common.parsers.riff.RiffTagParser
-import fr.amoya.ktaglib.common.tags.Tag
 
 /*
 * fr.amoya.ktaglib.parsers

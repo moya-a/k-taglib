@@ -1,6 +1,6 @@
 package fr.amoya.ktaglib.common.parsers
 
-import fr.amoya.ktaglib.common.tags.Tag
+import fr.amoya.ktaglib.common.Tag
 import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments

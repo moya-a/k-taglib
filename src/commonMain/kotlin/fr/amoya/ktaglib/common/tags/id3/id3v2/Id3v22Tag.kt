@@ -2,7 +2,6 @@ package fr.amoya.ktaglib.common.tags.id3.id3v2
 
 import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.tags.KnownFrames
-import fr.amoya.ktaglib.common.tags.Tag
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3Frame
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.v22.Id3v22KnownFrames
 
@@ -21,14 +20,13 @@ data class Id3v22Tag(
   override var frames: Collection<Id3Frame> = mutableListOf()
 ) : Id3v2Tag
 {
+  override val tagVersion: TagSpec = TagSpec.ID3V22
 
   override fun get(framesId: KnownFrames): String?
   {
     require(framesId is Id3v22KnownFrames)
     return super.get(framesId)
   }
-
-  override val tagVersion: TagSpec = TagSpec.ID3V22
 
   override val title: String?
     get() = this[Id3v22KnownFrames.TT2] ?: this[Id3v22KnownFrames.TT1]

@@ -1,7 +1,7 @@
-package fr.amoya.ktaglib.common.tags
+package fr.amoya.ktaglib.common
 
-import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.parsers.TagParser
+import fr.amoya.ktaglib.common.tags.KnownFrames
 import fr.amoya.ktaglib.common.utils.Utils
 import fr.amoya.ktaglib.platformdependent.file.FileReaderFactory
 
@@ -34,7 +34,7 @@ interface Tag
       val fileReader = FileReaderFactory.loadFileReader(absoluteFileName)
       try
       {
-        val tag = fileReader.readEntireFile().run {
+        val tag = readNBytes.run {
           TagParser.getParser(Utils.getTagSpec(this)).parse(this)
         }
         fileReader.close()
@@ -59,7 +59,7 @@ interface Tag
       val fileReader = FileReaderFactory.loadFileReader(absoluteFileName)
       try
       {
-        tag = fileReader.readEntireFile().run {
+        tag = readNBytes.run {
           TagParser.getParser(Utils.getTagSpec(this)).parse(this)
         }
       }

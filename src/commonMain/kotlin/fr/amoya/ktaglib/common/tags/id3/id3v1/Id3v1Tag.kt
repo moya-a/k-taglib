@@ -1,8 +1,8 @@
 package fr.amoya.ktaglib.common.tags.id3.id3v1
 
+import fr.amoya.ktaglib.common.Tag
 import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.tags.KnownFrames
-import fr.amoya.ktaglib.common.tags.Tag
 
 
 /*
@@ -23,9 +23,13 @@ data class Id3v1Tag(
   override var genre: String? = null
 ) : Tag
 {
+  @Deprecated(
+    message = "Id3v1 does not contain frames, use class properties directly instead",
+    level = DeprecationLevel.ERROR
+  )
   override fun get(framesId: KnownFrames): String?
   {
-    throw IllegalArgumentException("Id3v1 does not contain frames, use class properties directly")
+    throw IllegalArgumentException("Id3v1 does not contain frames, use class properties directly instead")
   }
 }
 
