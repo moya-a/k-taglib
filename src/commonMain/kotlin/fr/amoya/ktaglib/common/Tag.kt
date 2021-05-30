@@ -34,7 +34,7 @@ interface Tag
       val fileReader = FileReaderFactory.loadFileReader(absoluteFileName)
       try
       {
-        val tag = readNBytes.run {
+        val tag = fileReader.readEntireFile().run {
           TagParser.getParser(Utils.getTagSpec(this)).parse(this)
         }
         fileReader.close()
@@ -59,7 +59,7 @@ interface Tag
       val fileReader = FileReaderFactory.loadFileReader(absoluteFileName)
       try
       {
-        tag = readNBytes.run {
+        tag = fileReader.readEntireFile().run {
           TagParser.getParser(Utils.getTagSpec(this)).parse(this)
         }
       }
