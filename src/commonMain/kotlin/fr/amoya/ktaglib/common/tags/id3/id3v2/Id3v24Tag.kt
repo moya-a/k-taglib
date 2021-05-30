@@ -2,7 +2,6 @@ package fr.amoya.ktaglib.common.tags.id3.id3v2
 
 import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.tags.KnownFrames
-import fr.amoya.ktaglib.common.tags.Tag
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3Frame
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.v24.Id3v24KnownFrames
 

@@ -1,8 +1,8 @@
 package fr.amoya.ktaglib.common.parsers.id3.v1
 
 
+import fr.amoya.ktaglib.common.Tag
 import fr.amoya.ktaglib.common.parsers.TagParser
-import fr.amoya.ktaglib.common.tags.Tag
 import fr.amoya.ktaglib.common.tags.id3.id3v1.Id3v1KnownGenre
 import fr.amoya.ktaglib.common.tags.id3.id3v1.Id3v1Tag
 

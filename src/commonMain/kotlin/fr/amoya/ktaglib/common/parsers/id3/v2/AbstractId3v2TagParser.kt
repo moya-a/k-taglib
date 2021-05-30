@@ -1,7 +1,7 @@
 package fr.amoya.ktaglib.common.parsers.id3.v2
 
+import fr.amoya.ktaglib.common.Tag
 import fr.amoya.ktaglib.common.parsers.TagParser
-import fr.amoya.ktaglib.common.tags.Tag
 import fr.amoya.ktaglib.common.tags.id3.id3v2.Id3ExtendedHeader
 import fr.amoya.ktaglib.common.tags.id3.id3v2.Id3v2Tag
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3Frame

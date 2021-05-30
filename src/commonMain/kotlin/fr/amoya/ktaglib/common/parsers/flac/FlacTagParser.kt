@@ -1,8 +1,8 @@
 package fr.amoya.ktaglib.common.parsers.flac
 
 
+import fr.amoya.ktaglib.common.Tag
 import fr.amoya.ktaglib.common.parsers.TagParser
-import fr.amoya.ktaglib.common.tags.Tag
 
 
 /*

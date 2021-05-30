@@ -1,7 +1,7 @@
-package fr.amoya.ktaglib.common.tags
+package fr.amoya.ktaglib.common
 
-import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.parsers.TagParser
+import fr.amoya.ktaglib.common.tags.KnownFrames
 import fr.amoya.ktaglib.common.utils.Utils
 import fr.amoya.ktaglib.platformdependent.file.FileReaderFactory
 

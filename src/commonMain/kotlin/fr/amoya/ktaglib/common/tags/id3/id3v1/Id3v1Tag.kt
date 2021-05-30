@@ -1,8 +1,8 @@
 package fr.amoya.ktaglib.common.tags.id3.id3v1
 
+import fr.amoya.ktaglib.common.Tag
 import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.tags.KnownFrames
-import fr.amoya.ktaglib.common.tags.Tag
 
 
 /*
