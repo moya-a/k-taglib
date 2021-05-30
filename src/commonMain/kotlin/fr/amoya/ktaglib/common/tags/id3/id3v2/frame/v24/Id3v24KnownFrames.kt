@@ -18,7 +18,6 @@ import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.contentFrames.Id3FrameConten
 * Created on 04/05/2021
 */
 
-
 enum class Id3v24KnownFrames(
   override val description: String,
   override val parser: (ByteArray) -> Id3FrameContent = Id3FrameContentParsers::rawParser

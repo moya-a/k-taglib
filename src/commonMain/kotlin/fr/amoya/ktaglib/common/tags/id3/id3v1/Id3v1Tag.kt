@@ -3,6 +3,8 @@ package fr.amoya.ktaglib.common.tags.id3.id3v1
 import fr.amoya.ktaglib.common.Tag
 import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.tags.KnownFrames
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 
 /*
@@ -13,6 +15,8 @@ import fr.amoya.ktaglib.common.tags.KnownFrames
 */
 
 
+@Serializable
+@SerialName("ID3V1")
 data class Id3v1Tag(
   override var tagVersion: TagSpec = TagSpec.ID3V1,
   override var title: String? = null,

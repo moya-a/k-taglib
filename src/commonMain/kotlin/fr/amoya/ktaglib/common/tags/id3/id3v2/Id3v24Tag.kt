@@ -4,6 +4,9 @@ import fr.amoya.ktaglib.common.TagSpec
 import fr.amoya.ktaglib.common.tags.KnownFrames
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.Id3Frame
 import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.v24.Id3v24KnownFrames
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 
 /*
@@ -13,10 +16,14 @@ import fr.amoya.ktaglib.common.tags.id3.id3v2.frame.v24.Id3v24KnownFrames
 * Created on 05/05/2021
 */
 
-@ExperimentalUnsignedTypes
+@Serializable
+@SerialName("ID3V24")
 class Id3v24Tag(
+  @Transient
   override var header: Id3Header = Id3Header(),
+  @Transient
   override var extendedHeader: Id3ExtendedHeader? = null,
+  @Transient
   override var frames: Collection<Id3Frame> = mutableListOf()
 ) : Id3v2Tag
 {

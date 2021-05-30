@@ -8,11 +8,13 @@ package fr.amoya.ktaglib.common.tags.id3.id3v2.frame
 * Created on 04/05/2021
 */
 
-@ExperimentalUnsignedTypes
 data class Id3Frame(
   var header: Id3FrameHeader,
   var content: Id3FrameContent
 )
 {
+  val name
+    get() = header.id.description
+
   override fun toString(): String = "Id3Frame(id=${header.id}, content=$content)"
 }

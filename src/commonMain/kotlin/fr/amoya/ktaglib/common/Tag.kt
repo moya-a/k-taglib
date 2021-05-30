@@ -13,7 +13,6 @@ import fr.amoya.ktaglib.platformdependent.file.FileReaderFactory
 * Created on 01/05/2021
 */
 
-
 interface Tag
 {
   val tagVersion: TagSpec

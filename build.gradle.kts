@@ -1,5 +1,6 @@
 plugins {
   kotlin("multiplatform") version "1.5.10"
+  kotlin("plugin.serialization") version "1.5.10"
   java
   jacoco
   id("org.sonarqube") version "3.2.0"
@@ -13,6 +14,8 @@ repositories {
 }
 
 dependencies {
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
+
   // Junit5 Test-Framework
   testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
   testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
@@ -74,6 +77,10 @@ tasks {
       compilations.all {
         kotlinOptions {
           // allWarningsAsErrors = true
+          freeCompilerArgs = listOf(
+            "-Xuse-experimental=kotlin.ExperimentalUnsignedTypes",
+            "-XXLanguage:+InlineClasses"
+          )
         }
       }
     }
@@ -104,6 +111,7 @@ tasks {
           implementation(kotlin("stdlib"))
           implementation(kotlin("stdlib-common"))
           implementation(kotlin("reflect"))
+          implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
         }
       }
       val commonTest by getting {

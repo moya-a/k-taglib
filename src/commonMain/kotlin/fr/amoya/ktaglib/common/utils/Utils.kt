@@ -10,7 +10,6 @@ import fr.amoya.ktaglib.common.TagSpec
 * Created on 30/04/2021
 */
 
-@ExperimentalUnsignedTypes
 object Utils
 {
   fun getTagSpec(rawData: Sequence<Byte>): TagSpec =
