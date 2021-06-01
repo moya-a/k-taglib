@@ -2,10 +2,11 @@ package fr.amoya.ktaglib.tag
 
 import fr.amoya.ktaglib.tag.flac.FlacTagParser
 import fr.amoya.ktaglib.tag.id3.id3v1.Id3v1TagParser
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.v22.Id3v22TagParser
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.v23.Id3v23TagParser
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.v24.Id3v24TagParser
+import fr.amoya.ktaglib.tag.id3.id3v2.v22.Id3v22TagParser
+import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3v23TagParser
+import fr.amoya.ktaglib.tag.id3.id3v2.v24.Id3v24TagParser
 import fr.amoya.ktaglib.tag.riff.RiffTagParser
+import fr.amoya.ktaglib.tag.xing.XingTagParser
 
 /*
 * fr.amoya.ktaglib.parsers
@@ -28,7 +29,6 @@ interface TagParser
       null
     }
 
-  @ExperimentalUnsignedTypes
   companion object
   {
     private val id3v1TagParser: Id3v1TagParser by lazy { Id3v1TagParser() }
@@ -37,6 +37,7 @@ interface TagParser
     private val id3v24TagParser: Id3v24TagParser by lazy { Id3v24TagParser() }
     private val flacTagParser: FlacTagParser by lazy { FlacTagParser() }
     private val riffTagParser: RiffTagParser by lazy { RiffTagParser() }
+    private val xingTagParser: XingTagParser by lazy { XingTagParser() }
 
 
     fun getParser(type: TagType): TagParser =
@@ -48,6 +49,7 @@ interface TagParser
         TagType.ID3V24 -> id3v24TagParser
         TagType.FLAC   -> flacTagParser
         TagType.RIFF   -> riffTagParser
+        TagType.XING   -> xingTagParser
         TagType.OGG    -> throw NotImplementedError("No parser found for type : $type")
         TagType.APE    -> throw NotImplementedError("No parser found for type : $type")
         else           -> throw IllegalArgumentException("This file cannot be parsed as its type is not supported.")

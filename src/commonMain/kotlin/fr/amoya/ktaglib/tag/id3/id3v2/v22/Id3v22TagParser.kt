@@ -1,12 +1,8 @@
-package fr.amoya.ktaglib.tag.id3.id3v2.frame.v22
+package fr.amoya.ktaglib.tag.id3.id3v2.v22
 
-import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser
+import fr.amoya.ktaglib.tag.id3.id3v2.*
 import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser.Constants.headerSize
-import fr.amoya.ktaglib.tag.id3.id3v2.Id3ExtendedHeader
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.Id3Frame
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.Id3FrameContent
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.Id3FrameHeader
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.v23.Id3v23KnownFrames
+import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3v23KnownFrames
 import fr.amoya.ktaglib.tag.utils.ByteHelper
 
 

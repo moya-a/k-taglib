@@ -1,6 +1,6 @@
-package fr.amoya.ktaglib.tag.id3.id3v2.frame.contentFrames
+package fr.amoya.ktaglib.tag.id3.id3v2.contentFrames
 
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.Id3FrameContent
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameContent
 
 
 /*

@@ -20,6 +20,7 @@ enum class TagType(val magicNumber: Long, val specification: String)
   ID3V24(0x49_44_33_04, "ID3V24"),       // "ID3" + 0x04
   FLAC(0x66_4c_61_43, "FLAC"),           // "fLaC"
   RIFF(0x52_49_46_46, "RIFF"),           // "RIFF"
+  XING(0xFF_FB_90_64, "XING"),           // "XING"
   OGG(0x4f_67_67_53, "OGG"),             // "OggS"
   APE(0x41_50_45_54_41_47_45_58, "APE")  // "APETAGEX"
 }

@@ -4,8 +4,9 @@ import fr.amoya.ktaglib.tag.KnownFrames
 import fr.amoya.ktaglib.tag.Tag
 import fr.amoya.ktaglib.tag.TagType
 import fr.amoya.ktaglib.tag.id3.id3v1.Id3v1KnownGenre.getGenre
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.Id3Frame
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.Id3v2KnownFrames
+import fr.amoya.ktaglib.tag.id3.id3v2.v22.Id3v22Tag
+import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3v23Tag
+import fr.amoya.ktaglib.tag.id3.id3v2.v24.Id3v24Tag
 
 
 /*

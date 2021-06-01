@@ -25,7 +25,6 @@ interface Tag
 
   companion object
   {
-    @ExperimentalUnsignedTypes
     fun getTag(absoluteFileName: String): Tag
     {
       val fileReader = FileReaderFactory.loadFileReader(absoluteFileName)
@@ -49,7 +48,6 @@ interface Tag
       }
     }
 
-    @ExperimentalUnsignedTypes
     fun getTagOrNull(absoluteFileName: String): Tag?
     {
       var tag: Tag? = null

@@ -1,13 +1,13 @@
-package fr.amoya.ktaglib.tag.id3.id3v2.frame.v22
+package fr.amoya.ktaglib.tag.id3.id3v2.v22
 
 import fr.amoya.ktaglib.tag.frameContentParserFn
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.Id3v2KnownFrames
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.contentFrames.Id3FrameContentParsers.commentParser
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.contentFrames.Id3FrameContentParsers.rawParser
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.contentFrames.Id3FrameContentParsers.textParser
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.contentFrames.Id3FrameContentParsers.urlParser
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.contentFrames.Id3FrameContentParsers.userTextParser
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.contentFrames.Id3FrameContentParsers.userUrlParser
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3v2KnownFrames
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.commentParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.rawParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.textParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.urlParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.userTextParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.userUrlParser
 
 
 /*

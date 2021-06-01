@@ -1,7 +1,7 @@
-package fr.amoya.ktaglib.tag.id3.id3v2.frame.v22
+package fr.amoya.ktaglib.tag.id3.id3v2.v22
 
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.Id3FrameHeader
-import fr.amoya.ktaglib.tag.id3.id3v2.frame.Id3v2KnownFrames
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameHeader
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3v2KnownFrames
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient

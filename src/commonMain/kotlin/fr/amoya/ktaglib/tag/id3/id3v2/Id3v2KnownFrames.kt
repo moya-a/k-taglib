@@ -1,4 +1,4 @@
-package fr.amoya.ktaglib.tag.id3.id3v2.frame
+package fr.amoya.ktaglib.tag.id3.id3v2
 
 import fr.amoya.ktaglib.tag.KnownFrames
 
