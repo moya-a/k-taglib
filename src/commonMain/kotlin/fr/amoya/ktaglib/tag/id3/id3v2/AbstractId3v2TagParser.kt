@@ -3,8 +3,8 @@ package fr.amoya.ktaglib.tag.id3.id3v2
 import fr.amoya.ktaglib.tag.Tag
 import fr.amoya.ktaglib.tag.TagParser
 import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3v23KnownFrames
-import fr.amoya.ktaglib.tag.utils.ByteHelper
-import fr.amoya.ktaglib.tag.utils.toByteArray
+import fr.amoya.ktaglib.utils.ByteHelper
+import fr.amoya.ktaglib.utils.toByteArray
 import kotlin.experimental.and
 
 

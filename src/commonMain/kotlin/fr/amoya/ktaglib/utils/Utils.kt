@@ -1,4 +1,4 @@
-package fr.amoya.ktaglib.tag.utils
+package fr.amoya.ktaglib.utils
 
 import fr.amoya.ktaglib.tag.TagType
 

@@ -1,9 +1,9 @@
-package fr.amoya.ktaglib.tag.utils
+package fr.amoya.ktaglib.utils
 
-import fr.amoya.ktaglib.tag.utils.ByteHelper.byteArrayToLong
-import fr.amoya.ktaglib.tag.utils.ByteHelper.intToSynchSafeByteArray
-import fr.amoya.ktaglib.tag.utils.ByteHelper.longToByteArray
-import fr.amoya.ktaglib.tag.utils.ByteHelper.synchSafeBytesToInt
+import fr.amoya.ktaglib.utils.ByteHelper.byteArrayToLong
+import fr.amoya.ktaglib.utils.ByteHelper.intToSynchSafeByteArray
+import fr.amoya.ktaglib.utils.ByteHelper.longToByteArray
+import fr.amoya.ktaglib.utils.ByteHelper.synchSafeBytesToInt
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvFileSource

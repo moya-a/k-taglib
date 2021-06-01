@@ -3,7 +3,7 @@ package fr.amoya.ktaglib.tag.id3.id3v2.v22
 import fr.amoya.ktaglib.tag.id3.id3v2.*
 import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser.Constants.headerSize
 import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3v23KnownFrames
-import fr.amoya.ktaglib.tag.utils.ByteHelper
+import fr.amoya.ktaglib.utils.ByteHelper
 
 
 /*

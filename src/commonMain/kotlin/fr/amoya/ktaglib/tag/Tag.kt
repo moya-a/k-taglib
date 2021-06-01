@@ -1,7 +1,7 @@
 package fr.amoya.ktaglib.tag
 
 import fr.amoya.ktaglib.platformdependent.file.FileReaderFactory
-import fr.amoya.ktaglib.tag.utils.Utils
+import fr.amoya.ktaglib.utils.Utils
 
 
 /*
