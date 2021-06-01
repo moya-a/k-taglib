@@ -17,8 +17,8 @@ import fr.amoya.ktaglib.tag.xing.XingTagParser
 
 interface TagParser
 {
-  fun parse(rawData: Sequence<Byte>): Tag
-  fun tryParse(rawData: Sequence<Byte>): Tag? =
+  fun parse(rawData: ByteArray): Tag
+  fun tryParse(rawData: ByteArray): Tag? =
     try
     {
       parse(rawData)

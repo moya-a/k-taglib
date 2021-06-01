@@ -10,66 +10,43 @@ import kotlin.reflect.KClass
 * Created on 01/05/2021
 */
 
-fun Sequence<Byte>.toByteArray(size: Int): ByteArray
-{
-  require(size > 0)
-  val iter = iterator()
-  return ByteArray(size) { iter.next() }
-}
-
-@ExperimentalUnsignedTypes
 object ByteHelper
 {
 
   inline fun <reified T : Any> aggregateBytes(
     rawData: ByteArray,
     numberOfBytes: Int,
-    toClass: KClass<T>,
-    offset: Int = 0
-  ): T = aggregateBytes(rawData.asSequence(), numberOfBytes, toClass, offset)
-
-  inline fun <reified T : Any> aggregateBytes(
-    rawData: Sequence<Byte>,
-    numberOfBytes: Int,
-    toClass: KClass<T>,
-    offset: Int = 0
+    toClass: KClass<T>
   ): T = when (toClass)
   {
-    Long::class   -> aggregateBytesToLong(rawData, numberOfBytes, offset)
-    ULong::class  -> aggregateBytesToULong(rawData, numberOfBytes, offset)
-    Int::class    -> aggregateBytesToLong(rawData, numberOfBytes, offset).toInt()
-    UInt::class   -> aggregateBytesToULong(rawData, numberOfBytes, offset).toUInt()
-    String::class -> aggregateBytesToString(rawData, numberOfBytes, offset)
+    Long::class   -> aggregateBytesToLong(rawData, numberOfBytes)
+    ULong::class  -> aggregateBytesToULong(rawData, numberOfBytes)
+    Int::class    -> aggregateBytesToLong(rawData, numberOfBytes).toInt()
+    UInt::class   -> aggregateBytesToULong(rawData, numberOfBytes).toUInt()
+    String::class -> aggregateBytesToString(rawData, numberOfBytes)
     else          -> throw Exception("Type ${toClass.simpleName} is not supported")
   }.run { if (this is T) this else throw Exception("Could not aggregate bytes") }
 
-  fun aggregateBytesToULong(rawData: Sequence<Byte>, numberOfBytes: Int = 8, offset: Int = 0): ULong
+  fun aggregateBytesToULong(rawData: ByteArray, numberOfBytes: Int = 8, offset: Int = 0): ULong
   {
-    require(numberOfBytes in 1..8) { "The Long type is able to contain only 1 to 8 bytes" }
-    return rawData
-      .map { it.toUByte() }
-      .drop(offset)
-      .take(numberOfBytes)
+    require(numberOfBytes <= rawData.size)
+    require(numberOfBytes in 1..rawData.size) { "The Long type is able to contain only 1 to 8 bytes" }
+    return rawData.copyOfRange(offset, offset + numberOfBytes).toUByteArray()
       .fold(0x00uL) { aggregate, nextByte -> aggregate shl (8) or nextByte.toULong() }
   }
 
-  fun aggregateBytesToLong(rawData: Sequence<Byte>, numberOfBytes: Int = 8, offset: Int = 0): Long
+  fun aggregateBytesToLong(rawData: ByteArray, numberOfBytes: Int = 8, offset: Int = 0): Long
   {
+    require(numberOfBytes <= rawData.size)
     require(numberOfBytes in 1..8) { "The Long type is able to contain only 1 to 8 bytes" }
-    return rawData
-      .drop(offset)
-      .take(numberOfBytes)
+    return rawData.copyOfRange(offset, offset + numberOfBytes)
       .fold(0L) { aggregate, nextByte -> aggregate shl (8) or nextByte.toLong() }
   }
 
-  fun aggregateBytesToString(rawData: Sequence<Byte>, numberOfBytes: Int, offset: Int = 0): String
+  fun aggregateBytesToString(rawData: ByteArray, numberOfBytes: Int, offset: Int = 0): String
   {
-    require(numberOfBytes > 0) { "You must read at least one Byte" }
-    return rawData
-      .drop(offset)
-      .take(numberOfBytes)
-      .fold(StringBuilder()) { aggregate, nextByte -> aggregate.append(Char(nextByte.toInt())) }
-      .toString()
+    require(numberOfBytes in 1..rawData.size) { "You must read at least one Byte" }
+    return rawData.decodeToString(offset, numberOfBytes)
   }
 
   fun longToByteArray(value: Long): ByteArray =

@@ -1,7 +1,10 @@
 package fr.amoya.ktaglib.tag.id3.id3v2.v22
 
-import fr.amoya.ktaglib.tag.id3.id3v2.*
+import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser
 import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser.Constants.headerSize
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3Frame
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameContent
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameHeader
 import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3V23KnownFrame
 import fr.amoya.ktaglib.utils.ByteHelper
 
@@ -16,9 +19,6 @@ import fr.amoya.ktaglib.utils.ByteHelper
 @ExperimentalUnsignedTypes
 class Id3v22TagParser : AbstractId3v2TagParser
 {
-
-  override fun parseExtendedHeader(rawData: ByteArray): Id3ExtendedHeader? = null
-
   override fun parseFrameHeader(rawFrameHeader: ByteArray): Id3FrameHeader
   {
     require(rawFrameHeader.size >= headerSize) { "Id3v2 Frame header must be $headerSize bytes" }

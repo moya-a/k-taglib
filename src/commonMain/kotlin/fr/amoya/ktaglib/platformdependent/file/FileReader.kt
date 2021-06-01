@@ -16,6 +16,6 @@ interface FileReader
 
   fun load(filename: String)
   fun readNBytes(size: String): ByteArray
-  fun readEntireFile(): Sequence<Byte>
+  fun readEntireFile(): ByteArray
   fun close()
 }

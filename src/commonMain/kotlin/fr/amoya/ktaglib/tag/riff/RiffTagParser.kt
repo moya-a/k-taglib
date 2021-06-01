@@ -15,7 +15,7 @@ import fr.amoya.ktaglib.tag.TagParser
 
 class RiffTagParser : TagParser
 {
-  override fun parse(rawData: Sequence<Byte>): Tag
+  override fun parse(rawData: ByteArray): Tag
   {
     TODO("Not yet implemented")
   }

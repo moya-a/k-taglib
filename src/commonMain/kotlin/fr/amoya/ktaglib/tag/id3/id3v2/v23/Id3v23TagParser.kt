@@ -1,7 +1,10 @@
 package fr.amoya.ktaglib.tag.id3.id3v2.v23
 
-import fr.amoya.ktaglib.tag.id3.id3v2.*
+import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser
 import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser.Constants.headerSize
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3Frame
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameContent
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameHeader
 import fr.amoya.ktaglib.utils.ByteHelper
 
 
@@ -23,11 +26,6 @@ class Id3v23TagParser : AbstractId3v2TagParser
     const val frameCompressionFlag: Long = 0x80
     const val frameEncryptionFlag: Long = 0x40
     const val frameGroupingIdentityFlag: Long = 0x20
-  }
-
-  override fun parseExtendedHeader(rawData: ByteArray): Id3ExtendedHeader?
-  {
-    TODO("Not yet implemented")
   }
 
   override fun parseFrameHeader(rawFrameHeader: ByteArray): Id3FrameHeader

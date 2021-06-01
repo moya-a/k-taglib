@@ -1,5 +1,7 @@
 package fr.amoya.ktaglib.tag.id3.id3v2
 
+import fr.amoya.ktaglib.tag.Frame
+
 
 /*
 * fr.amoya.ktaglib.tags.id3v2.frame.content
@@ -8,13 +10,10 @@ package fr.amoya.ktaglib.tag.id3.id3v2
 * Created on 04/05/2021
 */
 
-data class Id3Frame(
-  var header: Id3FrameHeader,
-  var content: Id3FrameContent
-)
+class Id3Frame(
+  header: Id3FrameHeader,
+  override var content: Id3FrameContent
+) : Frame
 {
-  val name
-    get() = header.id.description
-
-  override fun toString(): String = "Id3Frame(id=${header.id}, content=$content)"
+  override val id = header.id
 }

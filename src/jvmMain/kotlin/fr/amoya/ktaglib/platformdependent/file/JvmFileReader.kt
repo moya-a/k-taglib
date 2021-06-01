@@ -37,13 +37,13 @@ class JvmFileReader : FileReader
     TODO("Not yet implemented")
   }
 
-  override fun readEntireFile(): Sequence<Byte>
+  override fun readEntireFile(): ByteArray
   {
-    var seq: Sequence<Byte> = emptySequence()
+    var seq: ByteArray = byteArrayOf()
     f?.let {
       try
       {
-        seq = it.inputStream().buffered().readAllBytes().asSequence()
+        seq = it.inputStream().buffered().readAllBytes()
       }
       finally
       {

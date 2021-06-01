@@ -5,7 +5,7 @@ import fr.amoya.ktaglib.tag.TagParser
 
 class XingTagParser : TagParser
 {
-  override fun parse(rawData: Sequence<Byte>): Tag
+  override fun parse(rawData: ByteArray): Tag
   {
     TODO("Not yet implemented")
   }

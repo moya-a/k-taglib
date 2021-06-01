@@ -37,7 +37,7 @@ class Id3v1TagParser : TagParser
     const val genreByte = 127
   }
 
-  override fun parse(rawData: Sequence<Byte>): Tag
+  override fun parse(rawData: ByteArray): Tag
   {
     val bytes = rawData.toList()
     require(bytes.size >= minTagSize) { "The file must be at least $minTagSize bytes to contains an id3v1 tag" }

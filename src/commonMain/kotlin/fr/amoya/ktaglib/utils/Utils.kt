@@ -12,34 +12,35 @@ import fr.amoya.ktaglib.tag.TagType
 
 object Utils
 {
-  fun getTagSpec(rawData: Sequence<Byte>): TagType =
-    when (ByteHelper.aggregateBytes(rawData, 4, Long::class))
-    {
-      TagType.ID3V24.magicNumber -> TagType.ID3V24
-      TagType.ID3V23.magicNumber -> TagType.ID3V23
-      TagType.ID3V22.magicNumber -> TagType.ID3V22
-      TagType.FLAC.magicNumber   -> TagType.FLAC
-      TagType.OGG.magicNumber    -> TagType.OGG
-      TagType.RIFF.magicNumber   -> TagType.RIFF
-      else                       ->
-        when
-        {
-          isAPE(rawData)   -> TagType.APE
-          isId3v1(rawData) -> TagType.ID3V1
-          else             -> TagType.NONE
-        }
-    }
+  fun getTagSpec(rawData: ByteArray): TagType
+  {
+    var tagType = TagType.NONE
+    if (rawData.size >= 4)
+      tagType = when (ByteHelper.aggregateBytes(rawData, 4, Long::class))
+      {
+        TagType.ID3V24.magicNumber -> TagType.ID3V24
+        TagType.ID3V23.magicNumber -> TagType.ID3V23
+        TagType.ID3V22.magicNumber -> TagType.ID3V22
+        TagType.FLAC.magicNumber   -> TagType.FLAC
+        TagType.OGG.magicNumber    -> TagType.OGG
+        TagType.RIFF.magicNumber   -> TagType.RIFF
+        else                       -> TagType.NONE
+      }
+    if (TagType.NONE == tagType && rawData.size >= 8)
+      tagType = if (isAPE(rawData)) TagType.APE else TagType.NONE
 
-  private fun isAPE(rawData: Sequence<Byte>): Boolean =
-    ByteHelper.aggregateBytes(rawData, 8, Long::class) == TagType.APE.magicNumber
+    if (TagType.NONE == tagType && rawData.size >= 128)
+      tagType = if (isId3v1(rawData)) TagType.ID3V1 else TagType.NONE
+
+    return tagType
+  }
+
+  private fun isAPE(rawData: ByteArray): Boolean = rawData.size > 8 && ByteHelper
+    .aggregateBytes(rawData, 8, Long::class) == TagType.APE.magicNumber
 
   /**
    * ID3v1 is a bit different as the tag is in the last 128b at the end of the file
    */
-  private fun isId3v1(rawData: Sequence<Byte>): Boolean
-  {
-    val lst = rawData.toList()
-    return lst.size > 128 && ByteHelper
-      .aggregateBytes(lst.takeLast(128).asSequence(), 3, Long::class) == TagType.ID3V1.magicNumber
-  }
+  private fun isId3v1(rawData: ByteArray): Boolean = rawData.size > 128 && ByteHelper
+    .aggregateBytes(rawData.takeLast(128).toByteArray(), 3, Long::class) == TagType.ID3V1.magicNumber
 }

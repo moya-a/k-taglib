@@ -1,7 +1,10 @@
 package fr.amoya.ktaglib.tag.id3.id3v2.v24
 
-import fr.amoya.ktaglib.tag.id3.id3v2.*
+import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser
 import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser.Constants.headerSize
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3Frame
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameContent
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameHeader
 import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3V23KnownFrame
 import fr.amoya.ktaglib.utils.ByteHelper
 
@@ -29,24 +32,20 @@ class Id3v24TagParser : AbstractId3v2TagParser
     const val frameDataLengthIndicatorFlag: Long = 0x01
   }
 
-  override fun parseExtendedHeader(rawData: ByteArray): Id3ExtendedHeader?
-  {
-    TODO("Not yet implemented")
-  }
-
   override fun parseFrameHeader(rawFrameHeader: ByteArray): Id3FrameHeader
   {
     require(rawFrameHeader.size >= headerSize) { "Id3v2 Frame header must be $headerSize bytes" }
     val firstFlagByte = rawFrameHeader[8].toLong()
     val secondFlagByte = rawFrameHeader[9].toLong()
-    val id = try
-    {
-      Id3V24KnownFrame.valueOf(rawFrameHeader.decodeToString(0, 4))
-    }
-    catch (_: Exception)
-    {
-      Id3V23KnownFrame.NONE
-    }
+    val id =
+      try
+      {
+        Id3V24KnownFrame.valueOf(rawFrameHeader.decodeToString(0, 4))
+      }
+      catch (_: Exception)
+      {
+        Id3V23KnownFrame.NONE
+      }
     return Id3v24FrameHeader(
       id = id,
       size = ByteHelper.aggregateBytes(rawFrameHeader.copyOfRange(4, 8), 4, UInt::class).toInt(),

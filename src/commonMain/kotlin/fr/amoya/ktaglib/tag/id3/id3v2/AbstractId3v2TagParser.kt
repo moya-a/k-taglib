@@ -4,7 +4,6 @@ import fr.amoya.ktaglib.tag.Tag
 import fr.amoya.ktaglib.tag.TagParser
 import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3V23KnownFrame
 import fr.amoya.ktaglib.utils.ByteHelper
-import fr.amoya.ktaglib.utils.toByteArray
 import kotlin.experimental.and
 
 
@@ -35,26 +34,30 @@ interface AbstractId3v2TagParser : TagParser
   }
 
   fun parseExtendedHeader(rawData: ByteArray): Id3ExtendedHeader?
+  {
+    TODO("Not yet implemented")
+  }
+
   fun parseFrameHeader(rawFrameHeader: ByteArray): Id3FrameHeader
   fun parseFrame(header: Id3FrameHeader, rawFrameContent: ByteArray): Id3Frame
 
 
-  override fun parse(rawData: Sequence<Byte>): Tag
+  override fun parse(rawData: ByteArray): Tag
   {
-    val tagHeader = parseTagHeader(rawData.toByteArray(headerSize))
+    val tagHeader = parseTagHeader(rawData.copyOfRange(0, headerSize))
     var extendedHeader: Id3ExtendedHeader? = null
     if (tagHeader.extendedHeader)
     {
-      extendedHeader = parseExtendedHeader(rawData.drop(headerSize).toByteArray(extendedHeaderSize))
+      extendedHeader = parseExtendedHeader(rawData.copyOfRange(headerSize, headerSize + extendedHeaderSize))
     }
-    return Id3v2Tag.createTag(
+    return Id3v2Tag.buildId3v2Tag(
       header = tagHeader,
       extendedHeader = extendedHeader,
-      frames = parseFrames(tagHeader.tagSize, rawData.drop(10))
+      frames = parseFrames(tagHeader.tagSize, rawData.drop(10).toByteArray())
     )
   }
 
-  private fun parseFrames(tagSize: Int, rawData: Sequence<Byte>): Collection<Id3Frame>
+  private fun parseFrames(tagSize: Int, rawData: ByteArray): Collection<Id3Frame>
   {
     val frames: MutableList<Id3Frame> = mutableListOf()
     var cursor = 0
@@ -64,12 +67,12 @@ interface AbstractId3v2TagParser : TagParser
       val frameHeaderStart = cursor
       val frameHeaderEnd = frameHeaderStart + headerSize
 
-      val frameRawHeader = rawData.drop(frameHeaderStart).toByteArray(headerSize)
+      val frameRawHeader = rawData.copyOfRange(frameHeaderStart, frameHeaderStart + headerSize)
       val frameHeaderParsed = parseFrameHeader(frameRawHeader)
 
       if (frameHeaderParsed.id !== Id3V23KnownFrame.NONE)
       {
-        val frameRawContent = rawData.drop(frameHeaderEnd).toByteArray(frameHeaderParsed.size)
+        val frameRawContent = rawData.copyOfRange(frameHeaderEnd, frameHeaderEnd + frameHeaderParsed.size)
         frames.add(parseFrame(frameHeaderParsed, frameRawContent))
       }
 

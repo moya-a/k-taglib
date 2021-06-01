@@ -1,6 +1,6 @@
 package fr.amoya.ktaglib.tag.id3.id3v2
 
-import fr.amoya.ktaglib.tag.KnownFrame
+import fr.amoya.ktaglib.tag.Frame
 import fr.amoya.ktaglib.tag.Tag
 import fr.amoya.ktaglib.tag.TagType
 import fr.amoya.ktaglib.tag.id3.id3v1.Id3v1KnownGenre.getGenre
@@ -16,16 +16,11 @@ import fr.amoya.ktaglib.tag.id3.id3v2.v24.Id3v24Tag
 * Created on 01/05/2021
 */
 
-@ExperimentalUnsignedTypes
-interface Id3v2Tag : Tag
+abstract class Id3v2Tag : Tag
 {
-
-  var header: Id3Header
-  var extendedHeader: Id3ExtendedHeader?
-  var frames: Collection<Id3Frame>
-
-  fun getContentFromFrame(frameId: Id3V2KnownFrame): String? =
-    frames.find { it.header.id == frameId }?.content?.getContentAsString()
+  override val frames: MutableCollection<Frame> = mutableListOf()
+  protected var header: Id3Header = Id3Header()
+  protected var extendedHeader: Id3ExtendedHeader? = null
 
   fun getGenres(rawGenres: String): String =
     if (rawGenres.startsWith("("))
@@ -33,41 +28,41 @@ interface Id3v2Tag : Tag
       val tmpStr = Regex("\\([0-9]+\\)").findAll(rawGenres)
         .fold(StringBuilder())
         { result, match ->
-          result
-            .append(getGenre(match.value.replace(Regex("[()]"), "").toInt()).genre).append(",")
+          result.append(getGenre(match.value.replace(Regex("[()]"), "").toInt()).genre).append(",")
         }
       tmpStr.substring(0, tmpStr.length - 1)
     }
     else
       rawGenres
 
-  override fun get(frameId: KnownFrame): String?
+  companion object Id3v2TagBuilder
   {
-    require(frameId is Id3V2KnownFrame)
-    return getContentFromFrame(frameId)
-  }
-
-  companion object
-  {
-    fun createTag(
+    fun buildId3v2Tag(
       header: Id3Header,
       extendedHeader: Id3ExtendedHeader?,
       frames: Collection<Id3Frame>
     ): Id3v2Tag = when (header.version)
     {
-      TagType.ID3V22 -> Id3v22Tag(header, extendedHeader, frames)
-      TagType.ID3V23 -> Id3v23Tag(header, extendedHeader, frames)
-      TagType.ID3V24 -> Id3v24Tag(header, extendedHeader, frames)
-      else           -> throw IllegalArgumentException("I cannot make an ID3v2 out of ${header.version.specification}")
-    }
-
-    fun printTag(tag: Id3v2Tag): String
-    {
-      val builder = StringBuilder()
-      builder.appendLine(tag.header)
-      tag.extendedHeader?.let { builder.appendLine(it) }
-      tag.frames.forEach { builder.append(" - ").append(it).appendLine() }
-      return builder.toString()
+      TagType.ID3V22 ->
+        Id3v22Tag().apply {
+          this.header = header
+          this.extendedHeader = extendedHeader
+          this.frames.addAll(frames)
+        }
+      TagType.ID3V23 ->
+        Id3v23Tag().apply {
+          this.header = header
+          this.extendedHeader = extendedHeader
+          this.frames.addAll(frames)
+        }
+      TagType.ID3V24 ->
+        Id3v24Tag().apply {
+          this.header = header
+          this.extendedHeader = extendedHeader
+          this.frames.addAll(frames)
+        }
+      else           ->
+        throw IllegalArgumentException("I cannot make an ID3v2 out of ${header.version.specification}")
     }
   }
 }

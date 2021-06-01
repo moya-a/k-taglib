@@ -1,5 +1,6 @@
 package fr.amoya.ktaglib.tag.id3.id3v1
 
+import fr.amoya.ktaglib.tag.Frame
 import fr.amoya.ktaglib.tag.KnownFrame
 import fr.amoya.ktaglib.tag.Tag
 import fr.amoya.ktaglib.tag.TagType
@@ -27,13 +28,22 @@ data class Id3v1Tag(
   override var genre: String? = null
 ) : Tag
 {
+  companion object Constants
+  {
+    private const val frameErrorMessage =
+      "Id3v1 does not contain variable frames, use class properties directly instead"
+  }
+
+  override val frames: Collection<Frame>
+    get() = throw IllegalArgumentException(frameErrorMessage)
+
   @Deprecated(
-    message = "Id3v1 does not contain frames, use class properties directly instead",
+    message = "Id3v1 does not contain variable frames, use class properties directly instead",
     level = DeprecationLevel.ERROR
   )
   override fun get(frameId: KnownFrame): String?
   {
-    throw IllegalArgumentException("Id3v1 does not contain frames, use class properties directly instead")
+    throw IllegalArgumentException(frameErrorMessage)
   }
 }
 
