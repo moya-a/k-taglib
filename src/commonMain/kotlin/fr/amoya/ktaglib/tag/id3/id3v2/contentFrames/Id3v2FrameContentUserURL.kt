@@ -11,10 +11,10 @@ import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameContent
 */
 
 
-data class Id3FrameContentURL(
+data class Id3v2FrameContentUserURL(
+  var description: String,
   var url: String
 ) : Id3FrameContent
 {
-  override fun getContentAsString(): String = url
+  override fun getContentAsString(): String = "$description : $url"
 }
-

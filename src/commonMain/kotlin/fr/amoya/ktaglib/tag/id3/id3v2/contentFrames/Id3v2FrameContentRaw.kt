@@ -11,9 +11,12 @@ import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameContent
 */
 
 
-data class Id3FrameContentText(
-  var content: String
+data class Id3v2FrameContentRaw(
+  var content: ByteArray
 ) : Id3FrameContent
 {
-  override fun getContentAsString(): String = content
+  override fun getContentAsString(): String = "${content.size} bytes of binary data"
+
+  override fun toString(): String = "Id3FrameContentRaw(content=${content.size} bytes)"
 }
+

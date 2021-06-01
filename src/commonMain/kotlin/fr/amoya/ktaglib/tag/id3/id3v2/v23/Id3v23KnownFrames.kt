@@ -2,13 +2,13 @@ package fr.amoya.ktaglib.tag.id3.id3v2.v23
 
 import fr.amoya.ktaglib.tag.frameContentParserFn
 import fr.amoya.ktaglib.tag.id3.id3v2.Id3v2KnownFrames
-import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers
-import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.commentParser
-import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.privateParser
-import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.textParser
-import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.urlParser
-import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.userTextParser
-import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.userUrlParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.commentParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.privateParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.textParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.urlParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.userTextParser
+import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.userUrlParser
 
 
 /*
@@ -20,7 +20,7 @@ import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3FrameContentParsers.userU
 
 enum class Id3v23KnownFrames(
   override val description: String,
-  override val parser: frameContentParserFn = Id3FrameContentParsers::rawParser
+  override val parser: frameContentParserFn = Id3v2FrameContentParsers::rawParser
 ) : Id3v2KnownFrames
 {
   NONE("Unknown Frame"),

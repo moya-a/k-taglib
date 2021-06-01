@@ -11,7 +11,7 @@ import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameContent
 */
 
 
-data class Id3FrameContentComment(
+data class Id3v2FrameContentComment(
   var language: String,
   var contentDescriptor: String,
   var comment: String

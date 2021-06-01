@@ -11,7 +11,7 @@ import fr.amoya.ktaglib.tag.id3.id3v2.Id3FrameContent
 */
 
 
-data class Id3FrameContentUserText(
+data class Id3v2FrameContentUserText(
   var name: String,
   var value: String
 ) : Id3FrameContent
