@@ -1,6 +1,6 @@
 package fr.amoya.ktaglib.tag.id3.id3v1
 
-import fr.amoya.ktaglib.tag.KnownFrames
+import fr.amoya.ktaglib.tag.KnownFrame
 import fr.amoya.ktaglib.tag.Tag
 import fr.amoya.ktaglib.tag.TagType
 import kotlinx.serialization.SerialName
@@ -31,7 +31,7 @@ data class Id3v1Tag(
     message = "Id3v1 does not contain frames, use class properties directly instead",
     level = DeprecationLevel.ERROR
   )
-  override fun get(framesId: KnownFrames): String?
+  override fun get(frameId: KnownFrame): String?
   {
     throw IllegalArgumentException("Id3v1 does not contain frames, use class properties directly instead")
   }

@@ -1,6 +1,6 @@
 package fr.amoya.ktaglib.tag.id3.id3v2
 
-import fr.amoya.ktaglib.tag.KnownFrames
+import fr.amoya.ktaglib.tag.KnownFrame
 import fr.amoya.ktaglib.tag.Tag
 import fr.amoya.ktaglib.tag.TagType
 import fr.amoya.ktaglib.tag.id3.id3v1.Id3v1KnownGenre.getGenre
@@ -24,7 +24,7 @@ interface Id3v2Tag : Tag
   var extendedHeader: Id3ExtendedHeader?
   var frames: Collection<Id3Frame>
 
-  fun getContentFromFrame(frameId: Id3v2KnownFrames): String? =
+  fun getContentFromFrame(frameId: Id3V2KnownFrame): String? =
     frames.find { it.header.id == frameId }?.content?.getContentAsString()
 
   fun getGenres(rawGenres: String): String =
@@ -41,10 +41,10 @@ interface Id3v2Tag : Tag
     else
       rawGenres
 
-  override fun get(framesId: KnownFrames): String?
+  override fun get(frameId: KnownFrame): String?
   {
-    require(framesId is Id3v2KnownFrames)
-    return getContentFromFrame(framesId)
+    require(frameId is Id3V2KnownFrame)
+    return getContentFromFrame(frameId)
   }
 
   companion object

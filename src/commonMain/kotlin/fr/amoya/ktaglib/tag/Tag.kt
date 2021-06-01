@@ -21,7 +21,7 @@ interface Tag
   val comment: String?
   val genre: String?
 
-  operator fun get(framesId: KnownFrames): String?
+  operator fun get(frameId: KnownFrame): String?
 
   companion object
   {

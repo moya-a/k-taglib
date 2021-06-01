@@ -1,6 +1,6 @@
 package fr.amoya.ktaglib.tag.id3.id3v2.v23
 
-import fr.amoya.ktaglib.tag.KnownFrames
+import fr.amoya.ktaglib.tag.KnownFrame
 import fr.amoya.ktaglib.tag.TagType
 import fr.amoya.ktaglib.tag.id3.id3v2.Id3ExtendedHeader
 import fr.amoya.ktaglib.tag.id3.id3v2.Id3Frame
@@ -32,26 +32,26 @@ data class Id3v23Tag(
 {
   override val tagVersion: TagType = TagType.ID3V23
 
-  override fun get(framesId: KnownFrames): String?
+  override fun get(frameId: KnownFrame): String?
   {
-    require(framesId is Id3v23KnownFrames)
-    return super.get(framesId)
+    require(frameId is Id3V23KnownFrame)
+    return super.get(frameId)
   }
 
   override val title: String?
-    get() = this[Id3v23KnownFrames.TIT2] ?: this[Id3v23KnownFrames.TIT1]
+    get() = this[Id3V23KnownFrame.TIT2] ?: this[Id3V23KnownFrame.TIT1]
 
   override val artist: String?
-    get() = this[Id3v23KnownFrames.TPE2] ?: this[Id3v23KnownFrames.TPE1]
+    get() = this[Id3V23KnownFrame.TPE2] ?: this[Id3V23KnownFrame.TPE1]
 
   override val album: String?
-    get() = this[Id3v23KnownFrames.TALB]
+    get() = this[Id3V23KnownFrame.TALB]
 
   override val year: String?
-    get() = this[Id3v23KnownFrames.TYER]
+    get() = this[Id3V23KnownFrame.TYER]
 
   override val comment: String? = null
 
   override val genre: String?
-    get() = this[Id3v23KnownFrames.TCON]?.run { getGenres(this) }
+    get() = this[Id3V23KnownFrame.TCON]?.run { getGenres(this) }
 }

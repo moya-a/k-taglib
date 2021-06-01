@@ -2,7 +2,7 @@ package fr.amoya.ktaglib.tag.id3.id3v2.v24
 
 import fr.amoya.ktaglib.tag.id3.id3v2.*
 import fr.amoya.ktaglib.tag.id3.id3v2.AbstractId3v2TagParser.Constants.headerSize
-import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3v23KnownFrames
+import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3V23KnownFrame
 import fr.amoya.ktaglib.utils.ByteHelper
 
 
@@ -41,11 +41,11 @@ class Id3v24TagParser : AbstractId3v2TagParser
     val secondFlagByte = rawFrameHeader[9].toLong()
     val id = try
     {
-      Id3v24KnownFrames.valueOf(rawFrameHeader.decodeToString(0, 4))
+      Id3V24KnownFrame.valueOf(rawFrameHeader.decodeToString(0, 4))
     }
     catch (_: Exception)
     {
-      Id3v23KnownFrames.NONE
+      Id3V23KnownFrame.NONE
     }
     return Id3v24FrameHeader(
       id = id,
@@ -64,5 +64,5 @@ class Id3v24TagParser : AbstractId3v2TagParser
   }
 
   override fun parseFrame(header: Id3FrameHeader, rawFrameContent: ByteArray): Id3Frame =
-    Id3Frame(header, (header.id as Id3v24KnownFrames).parser(rawFrameContent) as Id3FrameContent)
+    Id3Frame(header, (header.id as Id3V24KnownFrame).parserFn(rawFrameContent) as Id3FrameContent)
 }

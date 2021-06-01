@@ -1,7 +1,7 @@
 package fr.amoya.ktaglib.tag.id3.id3v2.v22
 
 import fr.amoya.ktaglib.tag.frameContentParserFn
-import fr.amoya.ktaglib.tag.id3.id3v2.Id3v2KnownFrames
+import fr.amoya.ktaglib.tag.id3.id3v2.Id3V2KnownFrame
 import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.commentParser
 import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.rawParser
 import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.textParser
@@ -17,10 +17,10 @@ import fr.amoya.ktaglib.tag.id3.id3v2.contentFrames.Id3v2FrameContentParsers.use
 * Created on 04/05/2021
 */
 
-enum class Id3v22KnownFrames(
+enum class Id3V22KnownFrame(
   override val description: String,
-  override val parser: frameContentParserFn = ::rawParser
-) : Id3v2KnownFrames
+  override val parserFn: frameContentParserFn = ::rawParser
+) : Id3V2KnownFrame
 {
   NONE("Unknown Frame"),
 

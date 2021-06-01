@@ -2,7 +2,7 @@ package fr.amoya.ktaglib.tag.id3.id3v2
 
 import fr.amoya.ktaglib.tag.Tag
 import fr.amoya.ktaglib.tag.TagParser
-import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3v23KnownFrames
+import fr.amoya.ktaglib.tag.id3.id3v2.v23.Id3V23KnownFrame
 import fr.amoya.ktaglib.utils.ByteHelper
 import fr.amoya.ktaglib.utils.toByteArray
 import kotlin.experimental.and
@@ -67,7 +67,7 @@ interface AbstractId3v2TagParser : TagParser
       val frameRawHeader = rawData.drop(frameHeaderStart).toByteArray(headerSize)
       val frameHeaderParsed = parseFrameHeader(frameRawHeader)
 
-      if (frameHeaderParsed.id !== Id3v23KnownFrames.NONE)
+      if (frameHeaderParsed.id !== Id3V23KnownFrame.NONE)
       {
         val frameRawContent = rawData.drop(frameHeaderEnd).toByteArray(frameHeaderParsed.size)
         frames.add(parseFrame(frameHeaderParsed, frameRawContent))

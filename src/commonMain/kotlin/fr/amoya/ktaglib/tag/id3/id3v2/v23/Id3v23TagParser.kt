@@ -37,11 +37,11 @@ class Id3v23TagParser : AbstractId3v2TagParser
     val secondFlagByte = rawFrameHeader[9].toLong()
     val id = try
     {
-      Id3v23KnownFrames.valueOf(rawFrameHeader.decodeToString(0, 4))
+      Id3V23KnownFrame.valueOf(rawFrameHeader.decodeToString(0, 4))
     }
     catch (_: Exception)
     {
-      Id3v23KnownFrames.NONE
+      Id3V23KnownFrame.NONE
     }
     return Id3v23FrameHeader(
       id = id,
@@ -58,5 +58,5 @@ class Id3v23TagParser : AbstractId3v2TagParser
   }
 
   override fun parseFrame(header: Id3FrameHeader, rawFrameContent: ByteArray): Id3Frame =
-    Id3Frame(header, (header.id as Id3v23KnownFrames).parser(rawFrameContent) as Id3FrameContent)
+    Id3Frame(header, (header.id as Id3V23KnownFrame).parserFn(rawFrameContent) as Id3FrameContent)
 }
